@@ -16,11 +16,14 @@ class Flurorouter {
   static String dashboardPath = '/dashboard';
 
   static void configureRoute() {
-    router.define(rootPath, handler: AdminHandlers.login);
+    router.define(rootPath,
+        handler: AdminHandlers.login, transitionType: TransitionType.fadeIn);
     //auth routes
-    router.define(loginPath, handler: AdminHandlers.login);
+    router.define(loginPath,
+        handler: AdminHandlers.login, transitionType: TransitionType.fadeIn);
 
-    //router.define(registerPath, handler: handler);
+    router.define(registerPath,
+        handler: AdminHandlers.register, transitionType: TransitionType.fadeIn);
     //router.define(dashboardPath, handler: handler);
 
     //404
