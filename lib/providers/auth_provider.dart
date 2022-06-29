@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:flutter/cupertino.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -5,8 +6,8 @@ class AuthProvider extends ChangeNotifier {
 
   login(String email, String password) {
     //TO-DO http requesy
-    _token = '<token>';
-    print('Almacenar JWT: $_token');
+    _token = '<token-must-change>';
+    LocalStorage.prefs.setString('token', _token!);
 
     //TO-DO nav to dashboard
     notifyListeners();

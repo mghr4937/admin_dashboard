@@ -1,10 +1,13 @@
 import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
+import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/ui/layouts/auth/auth_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  //BD - local
+  await LocalStorage.configurePress();
   Flurorouter.configureRoute();
   runApp(const AppState());
 }
@@ -32,6 +35,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       onGenerateRoute: Flurorouter.router.generator,
       builder: ((context, child) {
+        //print('token: ${LocalStorage.prefs.getString('token')}');
         return AuthLayout(child: child!);
       }),
       theme: ThemeData.dark().copyWith(
