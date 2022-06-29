@@ -12,16 +12,16 @@ class AuthLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    final ScrollController scollBarController = ScrollController();
     return Scaffold(
         body: Scrollbar(
+      controller: scollBarController,
       thumbVisibility: true,
       child: ListView(
+        controller: scollBarController,
         physics: const ClampingScrollPhysics(),
         children: [
-          (size.width > 1000)
-              ? _DesktopBody(child: child)
-              : _MobileBody(child: child),
+          (size.width > 1000) ? _DesktopBody(child: child) : _MobileBody(child: child),
 
           //LinksBar
           const LinksBar()
