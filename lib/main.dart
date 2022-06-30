@@ -6,7 +6,7 @@ import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
-import 'package:admin_dashboard/ui/layouts/auth/auth_layout.dart';
+import 'package:admin_dashboard/ui/layouts/admin/auth_layout.dart';
 
 void main() async {
   //BD - local
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
           return AuthLayout(child: child!);
         }
       }),
-      theme: ThemeData.dark().copyWith(
+      theme: ThemeData.light().copyWith(
           scrollbarTheme: const ScrollbarThemeData().copyWith(
               thickness: MaterialStateProperty.all(10),
               thumbColor: MaterialStateProperty.all(Colors.yellow.withOpacity(0.8)))),

@@ -1,8 +1,8 @@
+import 'package:admin_dashboard/ui/shared/widgets/custom_title.dart';
 import 'package:flutter/material.dart';
 
-import 'package:admin_dashboard/ui/layouts/auth/widgets/links_bar.dart';
-import 'package:admin_dashboard/ui/layouts/auth/widgets/background.dart';
-import 'package:admin_dashboard/ui/layouts/auth/widgets/custom_title.dart';
+import 'package:admin_dashboard/ui/layouts/admin/widgets/links_bar.dart';
+import 'package:admin_dashboard/ui/shared/widgets/background.dart';
 
 class AuthLayout extends StatelessWidget {
   const AuthLayout({Key? key, required this.child}) : super(key: key);

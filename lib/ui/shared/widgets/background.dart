@@ -13,10 +13,10 @@ class Background extends StatelessWidget {
             child: const Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
-                child: Image(
-                  image: AssetImage('futim-logo.png'),
-                  width: 400,
-                ),
+                // child: Image(
+                // image: AssetImage('futim-logo.png'),
+                //  width: 400,
+                //  ),
               ),
             )),
       ),
@@ -24,8 +24,6 @@ class Background extends StatelessWidget {
   }
 
   BoxDecoration _buildBackgroundImage() {
-    return const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('background.png'), fit: BoxFit.cover));
+    return const BoxDecoration(image: DecorationImage(image: AssetImage('background.png'), fit: BoxFit.cover));
   }
 }

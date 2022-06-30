@@ -9,7 +9,8 @@ class CustomTitle extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(children: [
-        Image.asset('futim-logo.png', width: 50, height: 50),
+        //Image.asset('futim-logo.png', width: 50, height: 50),
+        const Icon(Icons.sports_soccer, color: Colors.green, size: 100),
         const SizedBox(
           height: 20,
         ),
@@ -17,8 +18,7 @@ class CustomTitle extends StatelessWidget {
           fit: BoxFit.contain,
           child: Text(
             'Fúubool',
-            style: GoogleFonts.montserratAlternates(
-                fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
+            style: GoogleFonts.montserratAlternates(fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         )
       ]),

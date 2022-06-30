@@ -37,11 +37,11 @@ class _CustomMenuItemState extends State<CustomMenuItem> {
                   onEnter: (event) => setState(() => isHovered = true),
                   onExit: (event) => setState(() => isHovered = false),
                   child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    Icon(widget.icon.icon, color: Colors.white.withOpacity(0.3)),
+                    Icon(widget.icon.icon, color: Colors.green, size: 30),
                     const SizedBox(width: 10),
                     Text(
                       widget.text,
-                      style: GoogleFonts.roboto(fontSize: 14, color: Colors.green.withOpacity(0.3)),
+                      style: GoogleFonts.roboto(fontSize: 16, color: Colors.green),
                     )
                   ]),
                 ),

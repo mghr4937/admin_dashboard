@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:admin_dashboard/providers/register_form_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
-import 'package:admin_dashboard/ui/shared/buttons/curtom_outlined_button.dart';
-import 'package:admin_dashboard/ui/shared/buttons/link_text.dart';
-import 'package:admin_dashboard/ui/shared/inputs/custom_inputs.dart';
+import 'package:admin_dashboard/ui/shared/widgets/buttons/curtom_outlined_button.dart';
+import 'package:admin_dashboard/ui/shared/widgets/buttons/link_text.dart';
+import 'package:admin_dashboard/ui/shared/widgets/inputs/custom_inputs.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -71,6 +71,7 @@ class RegisterView extends StatelessWidget {
                         },
                         text: 'Kick Off',
                       ),
+                      const SizedBox(height: 20),
                       LinkText(
                         text: 'Ir al Login',
                         onPress: () {

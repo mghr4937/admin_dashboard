@@ -1,11 +1,10 @@
 import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:flutter/material.dart'; //
 import 'package:provider/provider.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:admin_dashboard/router/router.dart';
-import 'package:admin_dashboard/ui/shared/buttons/curtom_outlined_button.dart';
-import 'package:admin_dashboard/ui/shared/buttons/link_text.dart';
-import 'package:admin_dashboard/ui/shared/inputs/custom_inputs.dart';
+import 'package:admin_dashboard/ui/shared/widgets/buttons/curtom_outlined_button.dart';
+import 'package:admin_dashboard/ui/shared/widgets/buttons/link_text.dart';
+import 'package:admin_dashboard/ui/shared/widgets/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/providers/login_form_provider.dart';
 
 class LoginView extends StatelessWidget {
@@ -59,11 +58,11 @@ class LoginView extends StatelessWidget {
                       CustomOutlinedButton(
                         onPressed: () {
                           final isValid = loginFormProvider.validateForm();
-                          print(isValid);
                           if (isValid) authProvider.login(loginFormProvider.email, loginFormProvider.password);
                         },
                         text: 'Ingresar',
                       ),
+                      const SizedBox(height: 20),
                       LinkText(
                         text: 'Registarse',
                         onPress: () {
