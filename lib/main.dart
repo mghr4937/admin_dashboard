@@ -6,7 +6,7 @@ import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
-import 'package:admin_dashboard/ui/layouts/admin/auth_layout.dart';
+import 'package:admin_dashboard/ui/layouts/auth_layout.dart';
 
 void main() async {
   //BD - local
