@@ -1,4 +1,5 @@
-import 'package:admin_dashboard/ui/shared/widgets/menus/custom_menu_item.dart';
+import 'package:admin_dashboard/providers/sidebar_provider.dart';
+import 'package:admin_dashboard/ui/shared/widgets/menus/sidebar/custom_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_dashboard/ui/shared/widgets/logo.dart';
 //import 'package:admin_dashboard/ui/layouts/auth/widgets/text_separator.dart';
@@ -18,7 +19,10 @@ class SideBar extends StatelessWidget {
           const Logo(),
           const SizedBox(height: 50),
           //const TextSeparator(text: 'main'),
-          CustomMenuItem(text: 'Dashboard', icon: const Icon(Icons.dashboard_outlined), onPressed: () {}),
+          CustomMenuItem(
+              text: 'Dashboard',
+              icon: const Icon(Icons.dashboard_outlined),
+              onPressed: () => SideBarProvider.closeMenu()),
           CustomMenuItem(text: 'Campeonatos', icon: const Icon(Icons.webhook_outlined), onPressed: () {}),
           CustomMenuItem(text: 'Equipos', icon: const Icon(Icons.dataset_outlined), onPressed: () {}),
           CustomMenuItem(text: 'Usuarios', icon: const Icon(Icons.person_search_outlined), onPressed: () {}),
