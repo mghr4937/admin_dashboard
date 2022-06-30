@@ -7,6 +7,10 @@ import 'package:admin_dashboard/ui/views/admin_view.dart';
 class DashboardHandlers {
   static Handler adminPanel = Handler(handlerFunc: ((context, parameters) {
     final authProvider = Provider.of<AuthProvider>(context!);
-    return authProvider.authStatus == AuthStatus.authenticated ? const AdminView() : const LoginView();
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+      return const AdminView();
+    } else {
+      return const LoginView();
+    }
   }));
 }

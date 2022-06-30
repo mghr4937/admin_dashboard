@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
-import 'package:flutter/cupertino.dart';
 
 enum AuthStatus { checking, authenticated, notAuthenticated }
 
@@ -18,6 +18,7 @@ class AuthProvider extends ChangeNotifier {
     _token = '<token-must-change>';
     LocalStorage.prefs.setString('token', _token!);
 
+    authStatus = AuthStatus.authenticated;
     notifyListeners();
     NavigationService.replaceTo(Flurorouter.dashboardPath);
   }
@@ -31,7 +32,7 @@ class AuthProvider extends ChangeNotifier {
       return false;
     }
 //TODO: ir al backend y comprobar si JWT es valido
-    Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(Duration(milliseconds: 1000));
     authStatus = AuthStatus.authenticated;
     notifyListeners();
     return true;
