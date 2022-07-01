@@ -1,7 +1,6 @@
 import 'dart:convert';
-
-import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:flutter/material.dart';
+import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
@@ -28,20 +27,18 @@ class LoginProvider extends ChangeNotifier {
 
   register(String name, String email, String password) {
     final data = {"nombre": name, "correo": email, "password": password};
-
+    print(data);
     CafeApi.httpPost('/usuarios', data).then((response) {
-      print(json);
+      print(response);
     }).catchError((e) {
       print('Error en: $e');
       //TODO: notificacion
     });
 
-    _token = '<token-must-change>';
-    LocalStorage.prefs.setString('token', _token!);
-
-    authStatus = AuthStatus.authenticated;
-    notifyListeners();
-    NavigationService.replaceTo(Flurorouter.dashboardPath);
+    //notifyListeners();
+    //authStatus = AuthStatus.authenticated;
+    //LocalStorage.prefs.setString('token', _token!);
+    //NavigationService.replaceTo(Flurorouter.dashboardPath);
   }
 
   Future<bool> isAuthenticated() async {

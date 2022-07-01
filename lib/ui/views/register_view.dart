@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/providers/login_provider.dart';
 import 'package:flutter/material.dart'; //
 import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
@@ -16,6 +17,7 @@ class RegisterView extends StatelessWidget {
         create: (context) => RegisterFormProvider(),
         child: Builder(builder: (context) {
           final registerFormProvider = Provider.of<RegisterFormProvider>(context, listen: false);
+          final loginFormProvider = Provider.of<LoginProvider>(context, listen: false);
 
           return Container(
             margin: const EdgeInsets.only(top: 50),
@@ -69,6 +71,8 @@ class RegisterView extends StatelessWidget {
                         onPressed: () {
                           final validForm = registerFormProvider.validateForm();
                           if (!validForm) return;
+                          loginFormProvider.register(
+                              registerFormProvider.name, registerFormProvider.email, registerFormProvider.password);
                         },
                         text: 'Kick Off',
                       ),
