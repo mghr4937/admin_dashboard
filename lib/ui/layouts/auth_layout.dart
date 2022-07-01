@@ -73,16 +73,17 @@ class _MobileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      //height: 1000,
       color: Colors.black,
       child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
         const SizedBox(height: 20),
         const CustomTitle(),
-        SizedBox(
+        Container(
           width: double.infinity,
           height: 420,
           child: child,
         ),
-        const SizedBox(
+        Container(
           width: double.infinity,
           height: 400,
           child: Background(),

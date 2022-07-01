@@ -1,9 +1,10 @@
+import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:admin_dashboard/providers/sidebar_provider.dart';
 import 'package:admin_dashboard/ui/layouts/dashboard/dashboard_layout.dart';
 import 'package:admin_dashboard/ui/layouts/splash/splash_layout.dart';
-import 'package:admin_dashboard/providers/auth_provider.dart';
+import 'package:admin_dashboard/providers/login_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
@@ -12,6 +13,8 @@ import 'package:admin_dashboard/ui/layouts/auth_layout.dart';
 void main() async {
   //BD - local
   await LocalStorage.configurePress();
+  //api
+  CafeApi.configure();
   Flurorouter.configureRoute();
   runApp(const AppState());
 }
@@ -23,7 +26,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(lazy: false, create: (context) => AuthProvider()),
+        ChangeNotifierProvider(lazy: false, create: (context) => LoginProvider()),
         ChangeNotifierProvider(lazy: false, create: (context) => SideBarProvider())
       ],
       child: const MyApp(),
@@ -44,7 +47,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: NavigationService.navigatorKey,
       builder: ((context, child) {
         //print('token: ${LocalStorage.prefs.getString('token')}');
-        final authProvider = Provider.of<AuthProvider>(context);
+        final authProvider = Provider.of<LoginProvider>(context);
         if (authProvider.authStatus == AuthStatus.checking) {
           return const SplashLayout();
         }

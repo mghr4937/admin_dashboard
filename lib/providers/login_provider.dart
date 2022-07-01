@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
@@ -5,16 +8,34 @@ import 'package:admin_dashboard/services/navigation_service.dart';
 
 enum AuthStatus { checking, authenticated, notAuthenticated }
 
-class AuthProvider extends ChangeNotifier {
+class LoginProvider extends ChangeNotifier {
   String? _token;
   AuthStatus authStatus = AuthStatus.checking;
 
-  AuthProvider() {
+  LoginProvider() {
     isAuthenticated();
   }
 
   login(String email, String password) {
     //TO-DO http requesy
+    _token = '<token-must-change>';
+    LocalStorage.prefs.setString('token', _token!);
+
+    authStatus = AuthStatus.authenticated;
+    notifyListeners();
+    NavigationService.replaceTo(Flurorouter.dashboardPath);
+  }
+
+  register(String name, String email, String password) {
+    final data = {"nombre": name, "correo": email, "password": password};
+
+    CafeApi.httpPost('/usuarios', data).then((response) {
+      print(json);
+    }).catchError((e) {
+      print('Error en: $e');
+      //TODO: notificacion
+    });
+
     _token = '<token-must-change>';
     LocalStorage.prefs.setString('token', _token!);
 
