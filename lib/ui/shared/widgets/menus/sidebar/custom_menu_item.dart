@@ -23,9 +23,9 @@ class _CustomMenuItemState extends State<CustomMenuItem> {
     return AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         color: isHovered
-            ? Colors.green.withOpacity(0.1)
+            ? Colors.lightGreenAccent.withOpacity(0.3)
             : widget.isActive
-                ? Colors.green.withOpacity(0.1)
+                ? Colors.lightGreenAccent.withOpacity(0.2)
                 : Colors.transparent,
         child: Material(
             color: Colors.transparent,

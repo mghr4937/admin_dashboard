@@ -15,6 +15,7 @@ class Flurorouter {
   //dashboard
   static String dashboardPath = '/dashboard';
   static String iconsPath = '/dashboard/icons';
+  static String blankPath = '/dashboard/blank';
 
   static void configureRoute() {
     router.define(rootPath, handler: AdminHandlers.login, transitionType: TransitionType.fadeIn);
@@ -24,6 +25,8 @@ class Flurorouter {
     router.define(registerPath, handler: AdminHandlers.register, transitionType: TransitionType.fadeIn);
 
     router.define(dashboardPath, handler: DashboardHandlers.adminPanel, transitionType: TransitionType.fadeIn);
+
+    router.define(blankPath, handler: DashboardHandlers.blank, transitionType: TransitionType.fadeIn);
 
     router.define(iconsPath, handler: DashboardHandlers.icons, transitionType: TransitionType.fadeIn);
 

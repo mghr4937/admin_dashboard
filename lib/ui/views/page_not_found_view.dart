@@ -6,12 +6,12 @@ class PageNotFoundView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Center(
         child: Text(
           '404 - Ooops, no hay nada :(',
-          style: GoogleFonts.montserratAlternates(
-              fontSize: 50, fontWeight: FontWeight.bold),
+          style: GoogleFonts.montserratAlternates(fontSize: 50, fontWeight: FontWeight.bold),
         ),
       ),
     );

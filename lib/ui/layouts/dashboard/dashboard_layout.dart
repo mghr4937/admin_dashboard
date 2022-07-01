@@ -39,11 +39,7 @@ class _DashboardLayoutState extends State<DashboardLayout> with SingleTickerProv
                       const NavBar(),
 
                       //view
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                        child: widget.child,
-                      ))
+                      Expanded(child: widget.child)
                     ],
                   ),
                 ),
