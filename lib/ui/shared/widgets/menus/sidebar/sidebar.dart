@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/providers/login_provider.dart';
 import 'package:admin_dashboard/providers/sidebar_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
@@ -54,7 +55,10 @@ class SideBar extends StatelessWidget {
             onPressed: () => navigateTo(Flurorouter.iconsPath),
           ),
           const SizedBox(height: 50),
-          CustomMenuItem(text: 'Salir', icon: const Icon(Icons.logout_outlined), onPressed: () {}),
+          CustomMenuItem(
+              text: 'Salir',
+              icon: const Icon(Icons.logout_outlined),
+              onPressed: () => Provider.of<LoginProvider>(context, listen: false).logout()),
         ],
       ),
     );

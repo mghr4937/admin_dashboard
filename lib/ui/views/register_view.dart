@@ -42,7 +42,7 @@ class RegisterView extends StatelessWidget {
                         decoration: CustomInputs.loginInputDecoration(
                             hint: 'Ingrese su nombre', label: 'Nombre', iconData: Icons.sports_soccer_sharp),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
                       TextFormField(
                         validator: (value) {
                           if (!EmailValidator.validate(value ?? '')) return 'Email no valido';
@@ -53,7 +53,7 @@ class RegisterView extends StatelessWidget {
                         decoration: CustomInputs.loginInputDecoration(
                             hint: 'usuario@mail.com', label: 'Email', iconData: Icons.email_sharp),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) return 'Ingrese su contraseña';
@@ -66,7 +66,7 @@ class RegisterView extends StatelessWidget {
                         decoration: CustomInputs.loginInputDecoration(
                             hint: '**********', label: 'Contraseña', iconData: Icons.lock),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
                       CustomOutlinedButton(
                         onPressed: () {
                           final validForm = registerFormProvider.validateForm();
@@ -76,7 +76,7 @@ class RegisterView extends StatelessWidget {
                         },
                         text: 'Kick Off',
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
                       LinkText(
                         text: 'Ir al Login',
                         onPress: () {

@@ -86,7 +86,7 @@ class _MobileBody extends StatelessWidget {
         Container(
           width: double.infinity,
           height: 400,
-          child: Background(),
+          child: const Background(),
         )
       ]),
     );

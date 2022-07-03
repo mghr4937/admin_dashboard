@@ -1,14 +1,15 @@
-import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/providers/sidebar_provider.dart';
-import 'package:admin_dashboard/ui/layouts/dashboard/dashboard_layout.dart';
-import 'package:admin_dashboard/ui/layouts/splash/splash_layout.dart';
-import 'package:admin_dashboard/providers/login_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
+import 'package:admin_dashboard/providers/login_provider.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/ui/layouts/auth_layout.dart';
+import 'package:admin_dashboard/ui/layouts/dashboard/dashboard_layout.dart';
+import 'package:admin_dashboard/ui/layouts/splash/splash_layout.dart';
 
 void main() async {
   //BD - local
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       onGenerateRoute: Flurorouter.router.generator,
       navigatorKey: NavigationService.navigatorKey,
+      scaffoldMessengerKey: NotificationService.messengerKey,
       builder: ((context, child) {
         //print('token: ${LocalStorage.prefs.getString('token')}');
         final authProvider = Provider.of<LoginProvider>(context);

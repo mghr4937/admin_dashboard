@@ -1,44 +1,56 @@
-import 'dart:convert';
+import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
+import 'package:admin_dashboard/models/http/login_response.dart';
 
 enum AuthStatus { checking, authenticated, notAuthenticated }
 
 class LoginProvider extends ChangeNotifier {
   String? _token;
   AuthStatus authStatus = AuthStatus.checking;
+  Usuario? user;
 
   LoginProvider() {
     isAuthenticated();
   }
 
   login(String email, String password) {
-    //TO-DO http requesy
-    _token = '<token-must-change>';
-    LocalStorage.prefs.setString('token', _token!);
+    final data = {"correo": email, "password": password};
 
-    authStatus = AuthStatus.authenticated;
-    notifyListeners();
-    NavigationService.replaceTo(Flurorouter.dashboardPath);
+    CafeApi.httpPost('/auth/login', data).then((response) {
+      final authResponse = LoginResponse.fromMap(response);
+      user = authResponse.usuario;
+      authStatus = AuthStatus.authenticated;
+
+      LocalStorage.prefs.setString('token', authResponse.token);
+      NavigationService.replaceTo(Flurorouter.dashboardPath);
+      CafeApi.configure();
+      notifyListeners();
+    }).catchError((e) {
+      print('Error en: $e');
+      NotificationService.showSnackBarError('Oppps, Credenciales Incorrectas :)');
+    });
   }
 
   register(String name, String email, String password) {
     final data = {"nombre": name, "correo": email, "password": password};
-    print(data);
+
     CafeApi.httpPost('/usuarios', data).then((response) {
-      print(response);
+      final authResponse = LoginResponse.fromMap(response);
+      user = authResponse.usuario;
+      authStatus = AuthStatus.authenticated;
+
+      LocalStorage.prefs.setString('token', authResponse.token);
+      NavigationService.replaceTo(Flurorouter.dashboardPath);
+      CafeApi.configure();
+      notifyListeners();
     }).catchError((e) {
       print('Error en: $e');
-      //TODO: notificacion
+      NotificationService.showSnackBarError('Oppps, Email ya registrado :)');
     });
-
-    //notifyListeners();
-    //authStatus = AuthStatus.authenticated;
-    //LocalStorage.prefs.setString('token', _token!);
-    //NavigationService.replaceTo(Flurorouter.dashboardPath);
   }
 
   Future<bool> isAuthenticated() async {
@@ -49,10 +61,26 @@ class LoginProvider extends ChangeNotifier {
       notifyListeners();
       return false;
     }
-//TODO: ir al backend y comprobar si JWT es valido
-    await Future.delayed(Duration(milliseconds: 1000));
-    authStatus = AuthStatus.authenticated;
+
+    try {
+      final response = await CafeApi.httpGet('/auth');
+      final authResponse = LoginResponse.fromMap(response);
+      LocalStorage.prefs.setString('token', authResponse.token);
+      user = authResponse.usuario;
+      authStatus = AuthStatus.authenticated;
+      notifyListeners();
+      return true;
+    } catch (e) {
+      print(e);
+      authStatus = AuthStatus.notAuthenticated;
+      notifyListeners();
+      return false;
+    }
+  }
+
+  logout() {
+    LocalStorage.prefs.remove('token');
+    authStatus = AuthStatus.notAuthenticated;
     notifyListeners();
-    return true;
   }
 }

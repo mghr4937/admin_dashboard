@@ -1,11 +1,12 @@
-import 'package:admin_dashboard/providers/login_provider.dart';
 import 'package:flutter/material.dart'; //
 import 'package:provider/provider.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:admin_dashboard/router/router.dart';
+import 'package:admin_dashboard/providers/login_provider.dart';
+import 'package:admin_dashboard/providers/login_form_provider.dart';
 import 'package:admin_dashboard/ui/shared/widgets/buttons/curtom_outlined_button.dart';
 import 'package:admin_dashboard/ui/shared/widgets/buttons/link_text.dart';
 import 'package:admin_dashboard/ui/shared/widgets/inputs/custom_inputs.dart';
-import 'package:admin_dashboard/providers/login_form_provider.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class LoginView extends StatelessWidget {
                       children: [
                         TextFormField(
                           validator: (value) {
-                            //if (!EmailValidator.validate(value ?? '')) return 'Email no valido';
+                            if (!EmailValidator.validate(value ?? '')) return 'Email no valido';
                             return null;
                           },
                           onChanged: (value) => loginFormProvider.email = value,
@@ -43,11 +44,11 @@ class LoginView extends StatelessWidget {
                           decoration: CustomInputs.loginInputDecoration(
                               hint: 'usuario@mail.com', label: 'Email', iconData: Icons.email_sharp),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
                         TextFormField(
                           validator: (value) {
-                            //if (value == null || value.isEmpty) return 'Ingrese su contraseña';
-                            //if (value.length < 6) return 'Muy corta...';
+                            if (value == null || value.isEmpty) return 'Ingrese su contraseña';
+                            if (value.length < 6) return 'Muy corta...';
                             return null;
                           },
                           onChanged: (value) => loginFormProvider.password = value,
@@ -56,7 +57,7 @@ class LoginView extends StatelessWidget {
                           decoration: CustomInputs.loginInputDecoration(
                               hint: '**********', label: 'Contraseña', iconData: Icons.lock),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
                         CustomOutlinedButton(
                           onPressed: () {
                             final isValid = loginFormProvider.validateForm();
@@ -64,7 +65,7 @@ class LoginView extends StatelessWidget {
                           },
                           text: 'Ingresar',
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
                         LinkText(
                           text: 'Registarse',
                           onPress: () {
