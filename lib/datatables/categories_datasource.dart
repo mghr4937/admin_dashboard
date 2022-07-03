@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class CategoriesDatasource extends DataTableSource {
   final List<Category> categories;
+  final BuildContext context;
 
-  CategoriesDatasource(this.categories);
+  CategoriesDatasource(this.categories, this.context);
 
   @override
   DataRow getRow(int index) {
@@ -19,7 +20,20 @@ class CategoriesDatasource extends DataTableSource {
         DataCell(Row(
           children: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.edit_outlined), color: Colors.blue),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.delete_outlined), color: Colors.red),
+            IconButton(
+                onPressed: () {
+                  final dialog = AlertDialog(
+                    title: const Text('Estas seguro?'),
+                    content: Text('Borrar definitivamente ${category.name}?'),
+                    actions: [
+                      TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('No')),
+                      TextButton(onPressed: () {}, child: const Text('Si, borrar')),
+                    ],
+                  );
+                  showDialog(context: context, builder: (_) => dialog);
+                },
+                icon: const Icon(Icons.delete_outlined),
+                color: Colors.red),
           ],
         )),
       ],

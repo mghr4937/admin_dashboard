@@ -60,8 +60,6 @@ class _DashboardLayoutState extends State<DashboardLayout> with SingleTickerProv
                               color: Colors.black12.withOpacity(0.7),
                             ),
                           )),
-
-                    //TODO: background del sidebar
                     Transform.translate(
                       offset: Offset(SideBarProvider.movement.value, 0),
                       child: const SideBar(),

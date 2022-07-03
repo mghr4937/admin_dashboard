@@ -39,7 +39,7 @@ class _CategoriesViewState extends State<CategoriesView> {
               DataColumn(label: Text('Creado Por')),
               DataColumn(label: Text('Acciones'))
             ],
-            source: CategoriesDatasource(categories),
+            source: CategoriesDatasource(categories, context),
             onRowsPerPageChanged: (value) {
               setState(() {
                 _rowsPerPage = value ?? 10;
