@@ -66,12 +66,13 @@ class LoginProvider extends ChangeNotifier {
       final response = await CafeApi.httpGet('/auth');
       final authResponse = LoginResponse.fromMap(response);
       LocalStorage.prefs.setString('token', authResponse.token);
+
       user = authResponse.usuario;
       authStatus = AuthStatus.authenticated;
       notifyListeners();
       return true;
     } catch (e) {
-      print(e);
+      //print(e);
       authStatus = AuthStatus.notAuthenticated;
       notifyListeners();
       return false;

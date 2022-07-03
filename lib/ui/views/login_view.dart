@@ -13,7 +13,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<LoginProvider>(context);
+    final loginProvider = Provider.of<LoginProvider>(context);
 
     return ChangeNotifierProvider(
         create: (context) => LoginFormProvider(),
@@ -34,7 +34,9 @@ class LoginView extends StatelessWidget {
                     key: loginFormProvider.formKey,
                     child: Column(
                       children: [
+                        //email
                         TextFormField(
+                          onFieldSubmitted: (_) => onSubmit(loginFormProvider, loginProvider),
                           validator: (value) {
                             if (!EmailValidator.validate(value ?? '')) return 'Email no valido';
                             return null;
@@ -45,7 +47,9 @@ class LoginView extends StatelessWidget {
                               hint: 'usuario@mail.com', label: 'Email', iconData: Icons.email_sharp),
                         ),
                         const SizedBox(height: 10),
+                        //password
                         TextFormField(
+                          onFieldSubmitted: (_) => onSubmit(loginFormProvider, loginProvider),
                           validator: (value) {
                             if (value == null || value.isEmpty) return 'Ingrese su contraseña';
                             if (value.length < 6) return 'Muy corta...';
@@ -59,10 +63,7 @@ class LoginView extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         CustomOutlinedButton(
-                          onPressed: () {
-                            final isValid = loginFormProvider.validateForm();
-                            if (isValid) authProvider.login(loginFormProvider.email, loginFormProvider.password);
-                          },
+                          onPressed: () => onSubmit(loginFormProvider, loginProvider),
                           text: 'Ingresar',
                         ),
                         const SizedBox(height: 10),
@@ -79,5 +80,10 @@ class LoginView extends StatelessWidget {
             ),
           );
         }));
+  }
+
+  void onSubmit(LoginFormProvider loginFormProvider, LoginProvider loginProvider) {
+    final isValid = loginFormProvider.validateForm();
+    if (isValid) loginProvider.login(loginFormProvider.email, loginFormProvider.password);
   }
 }

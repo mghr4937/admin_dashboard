@@ -6,7 +6,7 @@ class CafeApi {
 
   static void configure() {
     _dio.options.baseUrl = 'http://localhost:8080/api';
-    _dio.options.headers = {'x_token': LocalStorage.prefs.getString('token') ?? ''};
+    _dio.options.headers = {'x-token': LocalStorage.prefs.getString('token') ?? ''};
   }
 
   static Future httpGet(String path) async {
