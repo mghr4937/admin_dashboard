@@ -1,4 +1,3 @@
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_dashboard/providers/sidebar_provider.dart';
 import 'package:admin_dashboard/ui/shared/widgets/menus/navbar/navbar.dart';
@@ -17,7 +16,7 @@ class _DashboardLayoutState extends State<DashboardLayout> with SingleTickerProv
   @override
   void initState() {
     super.initState();
-    SideBarProvider.menuController = AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    SideBarProvider.menuController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
   }
 
   @override

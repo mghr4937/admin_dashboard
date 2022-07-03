@@ -15,7 +15,7 @@ class CafeApi {
       return response.data;
     } catch (e) {
       print(e);
-      throw ('Error rn GET');
+      throw ('Error en GET');
     }
   }
 
