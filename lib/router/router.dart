@@ -15,13 +15,14 @@ class Flurorouter {
   //dashboard
   static String dashboardPath = '/dashboard';
   static String iconsPath = '/dashboard/icons';
+  static String categoriesPath = '/dashboard/categories';
   static String blankPath = '/dashboard/blank';
 
   static void configureRoute() {
     router.define(rootPath,
         handler: AdminHandlers.login,
         transitionType: TransitionType.none,
-        transitionDuration: Duration(milliseconds: 100));
+        transitionDuration: const Duration(milliseconds: 100));
     //auth routes
     router.define(loginPath, handler: AdminHandlers.login, transitionType: TransitionType.none);
 
@@ -29,15 +30,20 @@ class Flurorouter {
 
     router.define(dashboardPath, handler: DashboardHandlers.adminPanel, transitionType: TransitionType.none);
 
+    router.define(categoriesPath,
+        handler: DashboardHandlers.categories,
+        transitionType: TransitionType.none,
+        transitionDuration: const Duration(milliseconds: 100));
+
     router.define(blankPath,
         handler: DashboardHandlers.blank,
         transitionType: TransitionType.none,
-        transitionDuration: Duration(milliseconds: 100));
+        transitionDuration: const Duration(milliseconds: 100));
 
     router.define(iconsPath,
         handler: DashboardHandlers.icons,
         transitionType: TransitionType.none,
-        transitionDuration: Duration(milliseconds: 100));
+        transitionDuration: const Duration(milliseconds: 100));
 
     //404
     router.notFoundHandler = PageNotFoundHandler.pageNotFound;

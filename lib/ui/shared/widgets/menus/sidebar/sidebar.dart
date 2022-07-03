@@ -41,6 +41,12 @@ class SideBar extends StatelessWidget {
           CustomMenuItem(text: 'Usuarios', icon: const Icon(Icons.person_search_outlined), onPressed: () {}),
           CustomMenuItem(text: 'Configuración', icon: const Icon(Icons.settings_outlined), onPressed: () {}),
           const SizedBox(height: 50),
+          CustomMenuItem(
+            isActive: sideBarProvider.currentPage == Flurorouter.categoriesPath,
+            text: 'Categorias',
+            icon: const Icon(Icons.category_outlined),
+            onPressed: () => navigateTo(Flurorouter.categoriesPath),
+          ),
 
           CustomMenuItem(
             isActive: sideBarProvider.currentPage == Flurorouter.blankPath,
