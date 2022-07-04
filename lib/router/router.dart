@@ -26,9 +26,8 @@ class Flurorouter {
         transitionDuration: const Duration(milliseconds: 100));
     //auth routes
     router.define(loginPath, handler: AdminHandlers.login, transitionType: TransitionType.none);
-
     router.define(registerPath, handler: AdminHandlers.register, transitionType: TransitionType.none);
-
+    //dashboard
     router.define(dashboardPath, handler: DashboardHandlers.adminPanel, transitionType: TransitionType.none);
 
     router.define(categoriesPath,
