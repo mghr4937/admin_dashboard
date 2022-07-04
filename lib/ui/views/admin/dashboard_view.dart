@@ -22,8 +22,8 @@ class DashboardView extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           WhiteCard(
-            title: loggedUser.nombre,
-            child: Text(loggedUser.correo),
+            title: loggedUser.name,
+            child: Text(loggedUser.email),
           )
         ],
       ),

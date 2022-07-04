@@ -1,17 +1,18 @@
-import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:flutter/material.dart';
-import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/router/router.dart';
+import 'package:admin_dashboard/api/cafe_api.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
+import 'package:admin_dashboard/models/user.dart';
 import 'package:admin_dashboard/models/http/login_response.dart';
 
 enum AuthStatus { checking, authenticated, notAuthenticated }
 
 class LoginProvider extends ChangeNotifier {
-  String? _token;
+  //String? _token;
   AuthStatus authStatus = AuthStatus.checking;
-  Usuario? user;
+  User? user;
 
   LoginProvider() {
     isAuthenticated();
@@ -22,7 +23,7 @@ class LoginProvider extends ChangeNotifier {
 
     CafeApi.httpPost('/auth/login', data).then((response) {
       final authResponse = LoginResponse.fromMap(response);
-      user = authResponse.usuario;
+      user = authResponse.user;
       authStatus = AuthStatus.authenticated;
 
       LocalStorage.prefs.setString('token', authResponse.token);
@@ -40,7 +41,7 @@ class LoginProvider extends ChangeNotifier {
 
     CafeApi.httpPost('/usuarios', data).then((response) {
       final authResponse = LoginResponse.fromMap(response);
-      user = authResponse.usuario;
+      user = authResponse.user;
       authStatus = AuthStatus.authenticated;
 
       LocalStorage.prefs.setString('token', authResponse.token);
@@ -67,7 +68,7 @@ class LoginProvider extends ChangeNotifier {
       final authResponse = LoginResponse.fromMap(response);
       LocalStorage.prefs.setString('token', authResponse.token);
 
-      user = authResponse.usuario;
+      user = authResponse.user;
       authStatus = AuthStatus.authenticated;
       notifyListeners();
       return true;

@@ -4,6 +4,7 @@ import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/providers/sidebar_provider.dart';
+import 'package:admin_dashboard/providers/users_provider.dart';
 import 'package:admin_dashboard/providers/categories_provider.dart';
 import 'package:admin_dashboard/providers/login_provider.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
@@ -30,7 +31,8 @@ class AppState extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(lazy: false, create: (context) => LoginProvider()),
         ChangeNotifierProvider(lazy: false, create: (context) => SideBarProvider()),
-        ChangeNotifierProvider(create: (context) => CategoriesProvider())
+        ChangeNotifierProvider(create: (context) => CategoriesProvider()),
+        ChangeNotifierProvider(create: (context) => UsersProvider())
       ],
       child: const MyApp(),
     );

@@ -13,7 +13,7 @@ class CategoriesDatasource extends DataTableSource {
 
   @override
   DataRow getRow(int index) {
-    final category = categories[index];
+    final Category category = categories[index];
 
     return DataRow.byIndex(
       index: index,
