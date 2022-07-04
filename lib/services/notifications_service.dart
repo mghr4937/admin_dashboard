@@ -11,4 +11,12 @@ class NotificationService {
 
     messengerKey.currentState!.showSnackBar(snackBar);
   }
+
+  static showSnackSuccess(String message) {
+    final snackBar = SnackBar(
+        backgroundColor: Colors.greenAccent.withOpacity(0.9),
+        content: Text(message, style: GoogleFonts.roboto(color: Colors.white, fontSize: 20)));
+
+    messengerKey.currentState!.showSnackBar(snackBar);
+  }
 }

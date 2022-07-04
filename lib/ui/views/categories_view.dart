@@ -34,11 +34,11 @@ class _CategoriesViewState extends State<CategoriesView> {
           const SizedBox(height: 10),
           PaginatedDataTable(
             header: Text('Categorías diponibles', style: CustomLabels.h3, maxLines: 2),
-            columns: const [
-              DataColumn(label: Text('Id')),
-              DataColumn(label: Text('Categoría')),
-              DataColumn(label: Text('Creado Por')),
-              DataColumn(label: Text('Acciones'))
+            columns: [
+              DataColumn(label: Text('Id', style: CustomLabels.h3)),
+              DataColumn(label: Text('Categoría', style: CustomLabels.h3)),
+              DataColumn(label: Text('Creado Por', style: CustomLabels.h3)),
+              DataColumn(label: Text('Acciones', style: CustomLabels.h3))
             ],
             source: CategoriesDatasource(categories, context),
             onRowsPerPageChanged: (value) {

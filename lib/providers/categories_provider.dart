@@ -24,7 +24,7 @@ class CategoriesProvider extends ChangeNotifier {
       categories.add(newCategory);
       notifyListeners();
     } catch (e) {
-      print(e);
+      throw 'Error al crear categoría';
     }
   }
 
@@ -40,7 +40,7 @@ class CategoriesProvider extends ChangeNotifier {
       }).toList();
       notifyListeners();
     } catch (e) {
-      print(e);
+      throw 'Error al actualizar categoría';
     }
   }
 

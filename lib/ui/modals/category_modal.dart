@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:admin_dashboard/models/category.dart';
 import 'package:admin_dashboard/providers/categories_provider.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/ui/shared/widgets/buttons/curtom_outlined_button.dart';
 import 'package:admin_dashboard/ui/shared/widgets/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/shared/widgets/labels/custom_labels.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CategoryModal extends StatefulWidget {
   final Category? category;
@@ -75,11 +76,18 @@ class _CategoryModalState extends State<CategoryModal> {
             text: 'Guardar',
             onPressed: () async {
               final navigator = Navigator.of(context);
-              if (id == null) {
-                await categoriesProvider.createCategory(name);
-              } else {
-                await categoriesProvider.updateCategory(id!, name);
+              try {
+                if (id == null) {
+                  await categoriesProvider.createCategory(name);
+                  NotificationService.showSnackSuccess('$name creado!');
+                } else {
+                  await categoriesProvider.updateCategory(id!, name);
+                  NotificationService.showSnackSuccess('$name actualizado!');
+                }
+              } catch (e) {
+                NotificationService.showSnackBarError('$e');
               }
+
               navigator.pop();
             },
             color: Colors.blue.shade600,

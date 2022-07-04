@@ -36,7 +36,7 @@ class CategoriesDatasource extends DataTableSource {
                 onPressed: () {
                   final dialog = AlertDialog(
                     title: const Text('Seguro que desea borrar?'),
-                    content: Text('${category.name}?'),
+                    content: Text(category.name),
                     actions: [
                       CustomIconButton(
                         onPressed: () => Navigator.of(context).pop(),
@@ -68,13 +68,11 @@ class CategoriesDatasource extends DataTableSource {
   }
 
   @override
-  // TODO: implement isRowCountApproximate
   bool get isRowCountApproximate => false;
 
   @override
   int get rowCount => categories.length;
 
   @override
-  // TODO: implement selectedRowCount
   int get selectedRowCount => 0;
 }

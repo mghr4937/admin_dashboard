@@ -12,7 +12,7 @@ class SideBar extends StatelessWidget {
   const SideBar({Key? key}) : super(key: key);
 
   void navigateTo(String path) {
-    NavigationService.navigateTo(path);
+    NavigationService.replaceTo(path);
     SideBarProvider.closeMenu();
   }
 
@@ -38,9 +38,15 @@ class SideBar extends StatelessWidget {
           ),
           CustomMenuItem(text: 'Campeonatos', icon: const Icon(Icons.webhook_outlined), onPressed: () {}),
           CustomMenuItem(text: 'Equipos', icon: const Icon(Icons.dataset_outlined), onPressed: () {}),
-          CustomMenuItem(text: 'Usuarios', icon: const Icon(Icons.person_search_outlined), onPressed: () {}),
-          CustomMenuItem(text: 'Configuración', icon: const Icon(Icons.settings_outlined), onPressed: () {}),
+
+          CustomMenuItem(
+              isActive: sideBarProvider.currentPage == Flurorouter.usersPath,
+              text: 'Usuarios',
+              icon: const Icon(Icons.person_search_outlined),
+              onPressed: () => navigateTo(Flurorouter.usersPath)),
+
           const SizedBox(height: 50),
+
           CustomMenuItem(
             isActive: sideBarProvider.currentPage == Flurorouter.categoriesPath,
             text: 'Categorias',
@@ -61,6 +67,7 @@ class SideBar extends StatelessWidget {
             onPressed: () => navigateTo(Flurorouter.iconsPath),
           ),
           const SizedBox(height: 50),
+          CustomMenuItem(text: 'Configuración', icon: const Icon(Icons.settings_outlined), onPressed: () {}),
           CustomMenuItem(
               text: 'Salir',
               icon: const Icon(Icons.logout_outlined),
