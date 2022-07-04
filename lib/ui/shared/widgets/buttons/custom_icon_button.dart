@@ -21,9 +21,9 @@ class CustomIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: ButtonStyle(
-          shape: MaterialStateProperty.all(const StadiumBorder()),
-          backgroundColor: MaterialStateProperty.all(color.withOpacity(0.5)),
-          overlayColor: MaterialStateProperty.all(color)),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+          backgroundColor: MaterialStateProperty.all(color),
+          overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(0.3))),
       onPressed: () => onPressed(),
       child: Row(children: [
         Icon(icon, color: Colors.white),

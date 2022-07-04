@@ -5,11 +5,13 @@ class CustomInputs {
       {required String hint, required String label, required IconData iconData, Color? color = Colors.blue}) {
     return InputDecoration(
         border: OutlineInputBorder(borderSide: BorderSide(color: color!)),
+        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color, width: 3)),
         enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: color)),
         hintText: hint,
-        helperText: 'alal',
-        hintStyle: TextStyle(color: color.withOpacity(0.5)),
+        hintStyle: TextStyle(color: color.withOpacity(0.7)),
+        focusColor: color,
         labelText: label,
+        labelStyle: TextStyle(color: color, fontSize: 18),
         prefixIcon: Icon(iconData, color: color));
   }
 

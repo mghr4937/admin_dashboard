@@ -1,9 +1,10 @@
-import 'package:admin_dashboard/providers/categories_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:admin_dashboard/datatables/categories_datasource.dart';
+import 'package:admin_dashboard/providers/categories_provider.dart';
+import 'package:admin_dashboard/ui/modals/category_modal.dart';
 import 'package:admin_dashboard/ui/shared/widgets/buttons/custom_icon_button.dart';
 import 'package:admin_dashboard/ui/shared/widgets/labels/custom_labels.dart';
-import 'package:provider/provider.dart';
 
 class CategoriesView extends StatefulWidget {
   const CategoriesView({Key? key}) : super(key: key);
@@ -48,7 +49,10 @@ class _CategoriesViewState extends State<CategoriesView> {
             rowsPerPage: _rowsPerPage,
             actions: [
               CustomIconButton(
-                onPressed: () {},
+                onPressed: () => showModalBottomSheet(
+                    context: context,
+                    builder: ((_) => const CategoryModal(category: null)),
+                    backgroundColor: Colors.transparent),
                 text: 'Añadir',
                 icon: Icons.add_outlined,
               )

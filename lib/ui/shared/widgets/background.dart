@@ -5,10 +5,20 @@ class Background extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    var width;
+    if (size.width <= 1200) {
+      width = size.width * 0.3;
+    } else if (size.width <= 1500) {
+      width = size.width * 0.5;
+    } else {
+      width = size.width * 0.6;
+    }
     return Container(
       decoration: _buildBackgroundImage(),
       child: Container(
-          constraints: const BoxConstraints(maxWidth: 400),
+          width: width,
+          //constraints: const BoxConstraints(maxWidth: 400),
           child: const Center(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 30),
