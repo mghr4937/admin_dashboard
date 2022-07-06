@@ -24,7 +24,8 @@ class _CategoriesViewState extends State<CategoriesView> {
 
   @override
   Widget build(BuildContext context) {
-    final categories = Provider.of<CategoriesProvider>(context).categories;
+    final categoriesProvider = Provider.of<CategoriesProvider>(context);
+    final categories = categoriesProvider.categories;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -33,11 +34,25 @@ class _CategoriesViewState extends State<CategoriesView> {
         children: [
           const SizedBox(height: 10),
           PaginatedDataTable(
+            sortAscending: categoriesProvider.isAscending,
+            sortColumnIndex: categoriesProvider.sortColumnIndex,
             header: Text('Categorías diponibles', style: CustomLabels.h3, maxLines: 2),
             columns: [
-              DataColumn(label: Text('Id', style: CustomLabels.h3)),
-              DataColumn(label: Text('Categoría', style: CustomLabels.h3)),
-              DataColumn(label: Text('Creado Por', style: CustomLabels.h3)),
+              DataColumn(label: Text('UID', style: CustomLabels.h3)),
+              DataColumn(
+                label: Text('Categoría', style: CustomLabels.h3),
+                onSort: (columnIndex, _) {
+                  categoriesProvider.sortColumnIndex = columnIndex;
+                  categoriesProvider.sort<String>((category) => category.name);
+                },
+              ),
+              DataColumn(
+                label: Text('Creado Por', style: CustomLabels.h3),
+                onSort: (columnIndex, _) {
+                  categoriesProvider.sortColumnIndex = columnIndex;
+                  categoriesProvider.sort<String>((category) => category.user.name);
+                },
+              ),
               DataColumn(label: Text('Acciones', style: CustomLabels.h3))
             ],
             source: CategoriesDatasource(categories, context),

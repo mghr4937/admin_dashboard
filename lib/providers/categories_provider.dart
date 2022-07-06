@@ -5,6 +5,8 @@ import 'package:admin_dashboard/models/http/categories_response.dart';
 
 class CategoriesProvider extends ChangeNotifier {
   List<Category> categories = [];
+  bool isAscending = true;
+  int? sortColumnIndex;
 
   getCategories() async {
     final response = await CafeApi.httpGet('/categorias');
@@ -54,5 +56,15 @@ class CategoriesProvider extends ChangeNotifier {
     } catch (e) {
       print(e);
     }
+  }
+
+  void sort<T>(Comparable<T> Function(Category category) getField) {
+    categories.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+      return isAscending ? Comparable.compare(aValue, bValue) : Comparable.compare(bValue, aValue);
+    });
+    isAscending = !isAscending;
+    notifyListeners();
   }
 }
