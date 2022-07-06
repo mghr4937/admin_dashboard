@@ -7,21 +7,20 @@ import 'package:admin_dashboard/ui/modals/category_modal.dart';
 
 class UsersDataSource extends DataTableSource {
   final List<User> users;
-  final BuildContext context;
 
-  UsersDataSource(this.users, this.context);
+  UsersDataSource(this.users);
 
   @override
   DataRow getRow(int index) {
     final User user = users[index];
-    const image = Image(image: AssetImage('no-image.jpeg'), width: 35, height: 35);
-
+    const image = Image(image: AssetImage('no-photo.png'), width: 35, height: 35);
     return DataRow.byIndex(
       index: index,
       cells: [
         const DataCell(ClipOval(child: image)),
         DataCell(Text(user.name)),
         DataCell(Text(user.email)),
+        DataCell(Text(user.uid)),
         DataCell(IconButton(
           icon: const Icon(Icons.mode_edit_outlined),
           onPressed: () {},

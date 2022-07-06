@@ -7,6 +7,10 @@ class UsersProvider extends ChangeNotifier {
   List<User> users = [];
   bool isLoading = true;
 
+  UsersProvider() {
+    getPaginatedUsers();
+  }
+
   getPaginatedUsers() async {
     final response = await CafeApi.httpGet('/usuarios?limite=100&desde=0');
     final usersResponse = UsersResponse.fromMap(response);

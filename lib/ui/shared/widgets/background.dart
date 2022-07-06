@@ -32,6 +32,6 @@ class Background extends StatelessWidget {
   }
 
   BoxDecoration _buildBackgroundImage() {
-    return const BoxDecoration(image: DecorationImage(image: AssetImage('background.png'), fit: BoxFit.cover));
+    return const BoxDecoration(image: DecorationImage(image: AssetImage('assets/background.png'), fit: BoxFit.cover));
   }
 }
