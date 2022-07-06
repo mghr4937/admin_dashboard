@@ -30,4 +30,15 @@ class UsersProvider extends ChangeNotifier {
     isAscending = !isAscending;
     notifyListeners();
   }
+
+  Future<User> getUserById(String uid) async {
+    try {
+      final response = await CafeApi.httpGet('/usuarios/$uid');
+      final userResponse = User.fromMap(response);
+
+      return userResponse;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -28,4 +28,26 @@ class CustomInputs {
         ),
         hintStyle: TextStyle(color: color!.withOpacity(0.5)));
   }
+
+  static InputDecoration formInputDecoration(
+      {required String hint,
+      required IconData iconData,
+      required String label,
+      Color? color = Colors.black,
+      Color? focusedColor = Colors.green}) {
+    return InputDecoration(
+      border: OutlineInputBorder(borderSide: BorderSide(color: color!.withOpacity(0.3))),
+      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: color)),
+      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: focusedColor!, width: 3)),
+      hintText: hint,
+      labelText: label,
+      prefixIcon: Icon(
+        iconData,
+        color: color,
+        size: 30,
+      ),
+      hintStyle: TextStyle(color: color.withOpacity(0.5)),
+      labelStyle: TextStyle(color: color),
+    );
+  }
 }

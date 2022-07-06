@@ -27,7 +27,7 @@ class CustomIconButton extends StatelessWidget {
       onPressed: () => onPressed(),
       child: Row(children: [
         Icon(icon, color: Colors.white),
-        Text(text, style: GoogleFonts.montserratAlternates(color: Colors.white))
+        Text(' $text', style: GoogleFonts.montserratAlternates(color: Colors.white))
       ]),
     );
   }

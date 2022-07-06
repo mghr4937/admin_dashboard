@@ -9,16 +9,7 @@ class SplashLayout extends StatelessWidget {
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          CircularProgressIndicator(
-            color: Colors.green,
-            strokeWidth: 10,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text('...')
-        ],
+        children: const [CircularProgressIndicator(color: Colors.green, strokeWidth: 10), SizedBox(height: 20)],
       )),
     );
   }
