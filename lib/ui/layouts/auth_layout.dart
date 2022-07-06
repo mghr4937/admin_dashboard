@@ -1,7 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:admin_dashboard/ui/shared/widgets/custom_title.dart';
 import 'package:admin_dashboard/ui/shared/widgets/links_bar.dart';
-import 'package:flutter/material.dart';
-
 import 'package:admin_dashboard/ui/shared/widgets/background.dart';
 
 class AuthLayout extends StatelessWidget {

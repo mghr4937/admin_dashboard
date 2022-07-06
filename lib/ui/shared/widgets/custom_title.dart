@@ -1,5 +1,5 @@
+import 'package:admin_dashboard/ui/shared/widgets/labels/custom_labels.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CustomTitle extends StatelessWidget {
   const CustomTitle({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class CustomTitle extends StatelessWidget {
           fit: BoxFit.contain,
           child: Text(
             'Fúubool',
-            style: GoogleFonts.montserratAlternates(fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
+            style: CustomLabels.logoText,
           ),
         )
       ]),

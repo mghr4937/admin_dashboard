@@ -1,6 +1,4 @@
-//
 import 'package:flutter/material.dart';
-//
 import 'package:admin_dashboard/ui/shared/widgets/buttons/link_text.dart';
 
 class LinksBar extends StatelessWidget {
@@ -19,7 +17,7 @@ class LinksBar extends StatelessWidget {
           LinkText(text: 'Quienes Somos', onPress: () => print('About')),
           const LinkText(text: 'Partners'),
           const LinkText(text: 'Contacto'),
-          const LinkText(text: '© 2022 Ipolitis Corporation.')
+          const LinkText(text: '©2022 Ipolitis Corporation.')
         ],
       ),
     );

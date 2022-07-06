@@ -1,8 +1,8 @@
-import 'package:admin_dashboard/services/notifications_service.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:admin_dashboard/models/user.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/providers/forms/user_form_provider.dart';
 import 'package:admin_dashboard/providers/users_provider.dart';
 import 'package:admin_dashboard/ui/shared/widgets/buttons/custom_icon_button.dart';

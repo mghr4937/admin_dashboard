@@ -12,7 +12,7 @@ class Logo extends StatelessWidget {
         const Icon(Icons.sports_soccer, color: Colors.green, size: 50),
         const SizedBox(width: 5),
         Text(
-          'Fuubool',
+          'Fúubool',
           style: GoogleFonts.montserratAlternates(fontSize: 30, color: Colors.green, fontWeight: FontWeight.bold),
         ),
       ]),
