@@ -6,6 +6,8 @@ import 'package:admin_dashboard/models/user.dart';
 class UsersProvider extends ChangeNotifier {
   List<User> users = [];
   bool isLoading = true;
+  bool isAscending = true;
+  int? sortColumnIndex;
 
   UsersProvider() {
     getPaginatedUsers();
@@ -16,6 +18,16 @@ class UsersProvider extends ChangeNotifier {
     final usersResponse = UsersResponse.fromMap(response);
     users = [...usersResponse.usuarios];
     isLoading = false;
+    notifyListeners();
+  }
+
+  void sort<T>(Comparable<T> Function(User user) getField) {
+    users.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+      return isAscending ? Comparable.compare(aValue, bValue) : Comparable.compare(bValue, aValue);
+    });
+    isAscending = !isAscending;
     notifyListeners();
   }
 }
