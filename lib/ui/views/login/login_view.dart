@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/providers/login_provider.dart';
-import 'package:admin_dashboard/providers/login_form_provider.dart';
+import 'package:admin_dashboard/providers/forms/login_form_provider.dart';
 import 'package:admin_dashboard/ui/shared/widgets/buttons/curtom_outlined_button.dart';
 import 'package:admin_dashboard/ui/shared/widgets/buttons/link_text.dart';
 import 'package:admin_dashboard/ui/shared/widgets/inputs/custom_inputs.dart';

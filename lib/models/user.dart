@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class User {
   User(
-      {required this.rol,
+      {required this.role,
       required this.state,
       required this.google,
       required this.name,
@@ -10,7 +10,7 @@ class User {
       required this.uid,
       this.img});
 
-  String rol;
+  String role;
   bool state;
   bool google;
   String name;
@@ -23,7 +23,7 @@ class User {
   String toJson() => json.encode(toMap());
 
   factory User.fromMap(Map<String, dynamic> json) => User(
-        rol: json["rol"],
+        role: json["rol"],
         state: json["estado"],
         google: json["google"],
         name: json["nombre"],
@@ -33,7 +33,7 @@ class User {
       );
 
   Map<String, dynamic> toMap() => {
-        "rol": rol,
+        "rol": role,
         "estado": state,
         "google": google,
         "nombre": name,

@@ -1,9 +1,12 @@
-import 'package:admin_dashboard/ui/shared/widgets/buttons/custom_icon_button.dart';
-import 'package:admin_dashboard/ui/shared/widgets/inputs/custom_inputs.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:admin_dashboard/models/user.dart';
+import 'package:admin_dashboard/providers/forms/user_form_provider.dart';
 import 'package:admin_dashboard/providers/users_provider.dart';
+import 'package:admin_dashboard/ui/shared/widgets/buttons/custom_icon_button.dart';
+import 'package:admin_dashboard/ui/shared/widgets/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/shared/widgets/cards/whirte_card.dart';
 import 'package:admin_dashboard/ui/shared/widgets/labels/custom_labels.dart';
 
@@ -24,7 +27,14 @@ class _UserViewState extends State<UserView> {
     super.initState();
 
     final usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    usersProvider.getUserById(widget.uid).then((userResponse) => setState(() => user = userResponse));
+    final userFormProvider = Provider.of<UserFormProvider>(context, listen: false);
+
+    usersProvider.getUserById(widget.uid).then((userResponse) {
+      userFormProvider.user = userResponse;
+      setState(() {
+        user = userResponse;
+      });
+    });
   }
 
   @override
@@ -80,23 +90,47 @@ class _UserViewBody extends StatelessWidget {
 class _UserViewForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final userFormProvider = Provider.of<UserFormProvider>(context);
+    final user = userFormProvider.user!;
+
     return WhiteCard(
       title: 'Informacion Personal',
       child: Form(
         autovalidateMode: AutovalidateMode.always,
         child: Column(children: [
           TextFormField(
+              initialValue: user.name,
+              validator: (value) {
+                if (value == null || value.isEmpty) return 'Ingrese nombre de usuario';
+                if (value.length < 4) return 'Muy corto...';
+                return null;
+              },
+              onChanged: ((value) => userFormProvider.copyUserWith(name: value)),
               decoration: CustomInputs.formInputDecoration(
                   hint: 'Nombre de usuario', label: 'Nombre', iconData: Icons.supervised_user_circle_outlined)),
           const SizedBox(height: 20),
           TextFormField(
+              initialValue: user.email,
+              validator: (value) {
+                if (!EmailValidator.validate(value ?? '')) return 'Email no valido';
+                return null;
+              },
+              onChanged: ((value) => userFormProvider.copyUserWith(email: value)),
               decoration: CustomInputs.formInputDecoration(
                   hint: 'Correo electrónico', label: 'E-mail', iconData: Icons.mark_email_read_outlined)),
           const SizedBox(height: 20),
           ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 120),
               child: CustomIconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final saved = await userFormProvider.updateUser();
+                  if (saved) {
+                    NotificationService.showSnackSuccess('Usuario ${user.name} actualizado!');
+                    Provider.of<UsersProvider>(context, listen: false).getPaginatedUsers();
+                  } else {
+                    NotificationService.showSnackBarError('Error, no se pudo actualizar');
+                  }
+                },
                 text: 'Guardar',
                 icon: Icons.save_outlined,
               ))
@@ -109,6 +143,9 @@ class _UserViewForm extends StatelessWidget {
 class _PhotoContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final userFormProvider = Provider.of<UserFormProvider>(context);
+    final user = userFormProvider.user!;
+
     return WhiteCard(
       width: 250,
       child: Container(
@@ -117,7 +154,7 @@ class _PhotoContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('Profile', style: CustomLabels.h4),
+              Text('Perfil', style: CustomLabels.h4),
               const SizedBox(height: 20),
               Container(
                   width: 150,
@@ -147,7 +184,7 @@ class _PhotoContainer extends StatelessWidget {
                     ],
                   )),
               const SizedBox(height: 20),
-              Text('Nombre', style: CustomLabels.h4)
+              Text(user.name, style: CustomLabels.h4)
             ]),
       ),
     );

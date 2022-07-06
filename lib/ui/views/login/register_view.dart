@@ -2,7 +2,7 @@ import 'package:admin_dashboard/providers/login_provider.dart';
 import 'package:flutter/material.dart'; //
 import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:admin_dashboard/providers/register_form_provider.dart';
+import 'package:admin_dashboard/providers/forms/register_form_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/ui/shared/widgets/buttons/curtom_outlined_button.dart';
 import 'package:admin_dashboard/ui/shared/widgets/buttons/link_text.dart';
