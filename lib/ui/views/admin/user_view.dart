@@ -39,13 +39,13 @@ class _UserViewState extends State<UserView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
           Text(
-            "Usuario",
+            "Editar Usuario",
             style: CustomLabels.h1,
           ),
           const SizedBox(height: 10),
@@ -56,7 +56,7 @@ class _UserViewState extends State<UserView> {
               height: 300,
               child: const CircularProgressIndicator(color: Colors.green, strokeWidth: 10),
             )),
-          if (user != null) const _UserViewBody(),
+          if (user != null) _UserViewBody(),
         ],
       ),
     );
@@ -64,10 +64,6 @@ class _UserViewState extends State<UserView> {
 }
 
 class _UserViewBody extends StatelessWidget {
-  const _UserViewBody({
-    Key? key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -88,15 +84,21 @@ class _UserViewBody extends StatelessWidget {
 }
 
 class _UserViewForm extends StatelessWidget {
+  _UserViewForm({
+    Key? key,
+  }) : super(key: key);
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final user = userFormProvider.user!;
+    final usersProvider = Provider.of<UsersProvider>(context, listen: false);
 
     return WhiteCard(
       title: 'Informacion Personal',
       child: Form(
-        autovalidateMode: AutovalidateMode.always,
+        key: formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(children: [
           TextFormField(
               initialValue: user.name,
@@ -123,12 +125,16 @@ class _UserViewForm extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 120),
               child: CustomIconButton(
                 onPressed: () async {
-                  final saved = await userFormProvider.updateUser();
-                  if (saved) {
-                    NotificationService.showSnackSuccess('Usuario ${user.name} actualizado!');
-                    Provider.of<UsersProvider>(context, listen: false).getPaginatedUsers();
+                  if (formKey.currentState!.validate()) {
+                    final saved = await userFormProvider.updateUser();
+                    if (saved) {
+                      NotificationService.showSnackSuccess('Usuario ${user.name} actualizado!');
+                      usersProvider.refreshUser(user);
+                    } else {
+                      NotificationService.showSnackBarError('Error, no se pudo actualizar');
+                    }
                   } else {
-                    NotificationService.showSnackBarError('Error, no se pudo actualizar');
+                    NotificationService.showSnackBarError('El usuario no es valido');
                   }
                 },
                 text: 'Guardar',

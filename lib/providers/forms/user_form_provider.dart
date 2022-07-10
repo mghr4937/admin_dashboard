@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+
 import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/models/user.dart';
 
 class UserFormProvider extends ChangeNotifier {
   User? user;
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  bool isValidForm() {
-    return formKey.currentState!.validate();
-  }
-
+  UserFormProvider();
+  
   Future updateUser() async {
-    if (!isValidForm()) return false;
+    //if (!isValidForm()) return false;
     final data = {'nombre': user!.name, 'correo': user!.email};
     try {
       final response = await CafeApi.httpPut('/usuarios/${user!.uid}', data);
