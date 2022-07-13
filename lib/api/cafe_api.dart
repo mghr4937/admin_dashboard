@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
+import 'package:flutter/foundation.dart';
 
 class CafeApi {
   static Dio _dio = Dio();
@@ -13,8 +16,10 @@ class CafeApi {
     try {
       final response = await _dio.get(path);
       return response.data;
-    } catch (e) {
-      print(e);
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e.response);
+      }
       throw ('Error en GET');
     }
   }
@@ -24,8 +29,10 @@ class CafeApi {
     try {
       final response = await _dio.post(path, data: formData);
       return response.data;
-    } catch (e) {
-      print(e);
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e.response);
+      }
       throw ('Error en POST');
     }
   }
@@ -35,8 +42,10 @@ class CafeApi {
     try {
       final response = await _dio.put(path, data: formData);
       return response.data;
-    } catch (e) {
-      print(e);
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
       throw ('Error en PUT');
     }
   }
@@ -49,6 +58,19 @@ class CafeApi {
     } catch (e) {
       print(e);
       throw ('Error en DELETE');
+    }
+  }
+
+  static Future uploadFile(String path, Uint8List bytes) async {
+    final formData = FormData.fromMap({'archivo': MultipartFile.fromBytes(bytes)});
+    try {
+      final response = await _dio.put(path, data: formData);
+      return response.data;
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      throw ('Error en PUT');
     }
   }
 }

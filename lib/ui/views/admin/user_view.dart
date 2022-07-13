@@ -1,3 +1,5 @@
+import 'package:admin_dashboard/services/navigation_service.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
@@ -30,11 +32,21 @@ class _UserViewState extends State<UserView> {
     final userFormProvider = Provider.of<UserFormProvider>(context, listen: false);
 
     usersProvider.getUserById(widget.uid).then((userResponse) {
-      userFormProvider.user = userResponse;
-      setState(() {
-        user = userResponse;
-      });
+      if (userResponse != null) {
+        userFormProvider.user = userResponse;
+        userFormProvider.formkey = GlobalKey<FormState>();
+        setState(() {
+          user = userResponse;
+        });
+      } else {
+        NavigationService.replaceTo('/dashboard/users');
+      }
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -87,7 +99,6 @@ class _UserViewForm extends StatelessWidget {
   _UserViewForm({
     Key? key,
   }) : super(key: key);
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final userFormProvider = Provider.of<UserFormProvider>(context);
@@ -97,7 +108,7 @@ class _UserViewForm extends StatelessWidget {
     return WhiteCard(
       title: 'Informacion Personal',
       child: Form(
-        key: formKey,
+        key: userFormProvider.formkey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(children: [
           TextFormField(
@@ -125,16 +136,13 @@ class _UserViewForm extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 120),
               child: CustomIconButton(
                 onPressed: () async {
-                  if (formKey.currentState!.validate()) {
-                    final saved = await userFormProvider.updateUser();
-                    if (saved) {
-                      NotificationService.showSnackSuccess('Usuario ${user.name} actualizado!');
-                      usersProvider.refreshUser(user);
-                    } else {
-                      NotificationService.showSnackBarError('Error, no se pudo actualizar');
-                    }
+                  final saved = await userFormProvider.updateUser();
+                  if (saved) {
+                    NotificationService.showSnackSuccess('Usuario ${user.name} actualizado!');
+                    usersProvider.refreshUser(user);
+                    NavigationService.replaceTo('/dashboard/users');
                   } else {
-                    NotificationService.showSnackBarError('El usuario no es valido');
+                    NotificationService.showSnackBarError('Error, no se pudo actualizar');
                   }
                 },
                 text: 'Guardar',
@@ -151,6 +159,9 @@ class _PhotoContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final user = userFormProvider.user!;
+    final image = (user.img == null)
+        ? const Image(image: AssetImage('assets/no-photo.png'))
+        : FadeInImage.assetNetwork(placeholder: 'loader.gif', image: user.img!);
 
     return WhiteCard(
       width: 250,
@@ -167,7 +178,7 @@ class _PhotoContainer extends StatelessWidget {
                   height: 160,
                   child: Stack(
                     children: [
-                      const ClipOval(child: Image(image: AssetImage('assets/no-photo.png'))),
+                      ClipOval(child: image),
                       Positioned(
                         bottom: 5,
                         right: 5,
@@ -182,7 +193,22 @@ class _PhotoContainer extends StatelessWidget {
                           child: FloatingActionButton(
                             backgroundColor: Colors.green,
                             elevation: 0,
-                            onPressed: () {},
+                            onPressed: () async {
+                              FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                type: FileType.custom,
+                                allowedExtensions: ['png', 'jpg', 'jpeg'],
+                                allowMultiple: false,
+                              );
+
+                              if (result != null) {
+                                NotificationService.showProcessingIndicator(context);
+                                final resp = await userFormProvider.uploadImage(
+                                    '/uploads/usuarios/${user.uid}', result.files.first.bytes!);
+                                Navigator.of(context).pop();
+                              } else {
+                                // User canceled the picker
+                              }
+                            },
                             child: const Icon(Icons.camera_alt_outlined, size: 30),
                           ),
                         ),

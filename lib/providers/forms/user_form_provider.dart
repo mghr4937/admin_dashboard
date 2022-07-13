@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
@@ -6,11 +8,12 @@ import 'package:admin_dashboard/models/user.dart';
 
 class UserFormProvider extends ChangeNotifier {
   User? user;
+  late GlobalKey<FormState> formkey;
 
   UserFormProvider();
-  
+
   Future updateUser() async {
-    //if (!isValidForm()) return false;
+    if (!isValidForm()) return false;
     final data = {'nombre': user!.name, 'correo': user!.email};
     try {
       final response = await CafeApi.httpPut('/usuarios/${user!.uid}', data);
@@ -19,6 +22,10 @@ class UserFormProvider extends ChangeNotifier {
     } on DioError catch (e) {
       rethrow;
     }
+  }
+
+  bool isValidForm() {
+    return formkey.currentState!.validate();
   }
 
   // void updateListener() {
@@ -35,5 +42,18 @@ class UserFormProvider extends ChangeNotifier {
         uid: uid ?? user!.uid,
         img: img ?? user!.img);
     notifyListeners();
+  }
+
+  Future<User> uploadImage(String path, Uint8List bytes) async {
+    try {
+      final response = await CafeApi.uploadFile(path, bytes);
+      user = User.fromMap(response);
+      notifyListeners();
+
+      return user!;
+    } catch (e) {
+      print(e);
+      throw 'Error subiendo imagen';
+    }
   }
 }
