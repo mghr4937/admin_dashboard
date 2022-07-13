@@ -9,8 +9,9 @@ class CustomTitle extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(children: [
-        //Image.asset('futim-logo.png', width: 50, height: 50),
-        const Icon(Icons.sports_soccer, color: Colors.green, size: 100),
+        Image.asset('logo-field.png', width: 150, height: 150),
+        //const Icon(Icons.sports_soccer, color: Colors.green, size: 100),
+
         const SizedBox(
           height: 20,
         ),

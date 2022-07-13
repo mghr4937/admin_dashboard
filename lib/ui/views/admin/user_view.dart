@@ -1,12 +1,12 @@
-import 'package:admin_dashboard/services/navigation_service.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:admin_dashboard/providers/providers.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/models/user.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
-import 'package:admin_dashboard/providers/forms/user_form_provider.dart';
-import 'package:admin_dashboard/providers/users_provider.dart';
+
 import 'package:admin_dashboard/ui/shared/widgets/buttons/custom_icon_button.dart';
 import 'package:admin_dashboard/ui/shared/widgets/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/shared/widgets/cards/whirte_card.dart';
@@ -202,8 +202,9 @@ class _PhotoContainer extends StatelessWidget {
 
                               if (result != null) {
                                 NotificationService.showProcessingIndicator(context);
-                                final resp = await userFormProvider.uploadImage(
+                                final userResponse = await userFormProvider.uploadImage(
                                     '/uploads/usuarios/${user.uid}', result.files.first.bytes!);
+                                Provider.of<UsersProvider>(context, listen: false).refreshUser(userResponse);
                                 Navigator.of(context).pop();
                               } else {
                                 // User canceled the picker
