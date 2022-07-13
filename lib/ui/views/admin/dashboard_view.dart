@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:admin_dashboard/providers/login_provider.dart';
-import 'package:admin_dashboard/ui/shared/widgets/cards/whirte_card.dart';
-import 'package:admin_dashboard/ui/shared/widgets/labels/custom_labels.dart';
+import '/providers/login_provider.dart';
+import '/ui/shared/widgets/cards/whirte_card.dart';
+import '/ui/shared/widgets/labels/custom_labels.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({Key? key}) : super(key: key);

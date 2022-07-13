@@ -9,7 +9,7 @@ class Logo extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(top: 30),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.asset('logo-field.png', width: 120, height: 120),
+        Image.asset('assets/logo-field.png', width: 120, height: 120),
         const SizedBox(height: 5),
         Text(
           'Fúubool',

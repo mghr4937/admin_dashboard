@@ -1,4 +1,3 @@
-//
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 //
@@ -8,9 +7,7 @@ class LinkText extends StatefulWidget {
   final Function? onPress;
   final Color? color;
 
-  const LinkText(
-      {Key? key, required this.text, this.onPress, this.color = Colors.blue})
-      : super(key: key);
+  const LinkText({Key? key, required this.text, this.onPress, this.color = Colors.blue}) : super(key: key);
 
   @override
   State<LinkText> createState() => _LinkTextState();
@@ -36,9 +33,7 @@ class _LinkTextState extends State<LinkText> {
                   fontSize: 16,
                   color: widget.color,
                   fontWeight: isHover ? FontWeight.bold : FontWeight.normal,
-                  decoration: isHover
-                      ? TextDecoration.underline
-                      : TextDecoration.none)),
+                  decoration: isHover ? TextDecoration.underline : TextDecoration.none)),
         ),
       ),
     );

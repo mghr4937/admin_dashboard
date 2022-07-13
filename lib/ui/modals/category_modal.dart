@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:admin_dashboard/models/category.dart';
-import 'package:admin_dashboard/providers/categories_provider.dart';
-import 'package:admin_dashboard/services/notifications_service.dart';
-import 'package:admin_dashboard/ui/shared/widgets/buttons/curtom_outlined_button.dart';
-import 'package:admin_dashboard/ui/shared/widgets/inputs/custom_inputs.dart';
-import 'package:admin_dashboard/ui/shared/widgets/labels/custom_labels.dart';
+import '/models/category.dart';
+import '/providers/categories_provider.dart';
+import '/services/notifications_service.dart';
+import '/ui/shared/widgets/buttons/curtom_outlined_button.dart';
+import '/ui/shared/widgets/inputs/custom_inputs.dart';
+import '/ui/shared/widgets/labels/custom_labels.dart';
 
 class CategoryModal extends StatefulWidget {
   final Category? category;

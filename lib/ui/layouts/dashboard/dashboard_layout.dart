@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:admin_dashboard/providers/sidebar_provider.dart';
-import 'package:admin_dashboard/ui/shared/widgets/menus/navbar/navbar.dart';
-import 'package:admin_dashboard/ui/shared/widgets/menus/sidebar/sidebar.dart';
+import '/providers/sidebar_provider.dart';
+import '/ui/shared/widgets/menus/navbar/navbar.dart';
+import '/ui/shared/widgets/menus/sidebar/sidebar.dart';
 
 class DashboardLayout extends StatefulWidget {
   final Widget child;

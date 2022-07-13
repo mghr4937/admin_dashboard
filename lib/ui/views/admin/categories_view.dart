@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:admin_dashboard/datatables/categories_datasource.dart';
-import 'package:admin_dashboard/providers/categories_provider.dart';
-import 'package:admin_dashboard/ui/modals/category_modal.dart';
-import 'package:admin_dashboard/ui/shared/widgets/buttons/custom_icon_button.dart';
-import 'package:admin_dashboard/ui/shared/widgets/labels/custom_labels.dart';
+import '/datatables/categories_datasource.dart';
+import '/providers/categories_provider.dart';
+import '/ui/modals/category_modal.dart';
+import '/ui/shared/widgets/buttons/custom_icon_button.dart';
+import '/ui/shared/widgets/labels/custom_labels.dart';
 
 class CategoriesView extends StatefulWidget {
   const CategoriesView({Key? key}) : super(key: key);

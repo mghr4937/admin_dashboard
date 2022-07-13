@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:admin_dashboard/providers/providers.dart';
+import '/providers/providers.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:admin_dashboard/services/navigation_service.dart';
-import 'package:admin_dashboard/models/user.dart';
-import 'package:admin_dashboard/services/notifications_service.dart';
+import '/services/navigation_service.dart';
+import '/models/user.dart';
+import '/services/notifications_service.dart';
 
-import 'package:admin_dashboard/ui/shared/widgets/buttons/custom_icon_button.dart';
-import 'package:admin_dashboard/ui/shared/widgets/inputs/custom_inputs.dart';
-import 'package:admin_dashboard/ui/shared/widgets/cards/whirte_card.dart';
-import 'package:admin_dashboard/ui/shared/widgets/labels/custom_labels.dart';
+import '/ui/shared/widgets/buttons/custom_icon_button.dart';
+import '/ui/shared/widgets/inputs/custom_inputs.dart';
+import '/ui/shared/widgets/cards/whirte_card.dart';
+import '/ui/shared/widgets/labels/custom_labels.dart';
 
 class UserView extends StatefulWidget {
   final String uid;
@@ -161,7 +161,11 @@ class _PhotoContainer extends StatelessWidget {
     final user = userFormProvider.user!;
     final image = (user.img == null)
         ? const Image(image: AssetImage('assets/no-photo.png'))
-        : FadeInImage.assetNetwork(placeholder: 'loader.gif', image: user.img!);
+        : FadeInImage.assetNetwork(
+            placeholder: 'loader.gif',
+            image: user.img!,
+            fadeInDuration: const Duration(milliseconds: 2000),
+          );
 
     return WhiteCard(
       width: 250,

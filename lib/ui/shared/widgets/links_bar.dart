@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:admin_dashboard/ui/shared/widgets/buttons/link_text.dart';
+import '/ui/shared/widgets/buttons/link_text.dart';
 
 class LinksBar extends StatelessWidget {
   const LinksBar({Key? key}) : super(key: key);

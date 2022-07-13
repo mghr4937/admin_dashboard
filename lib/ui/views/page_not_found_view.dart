@@ -1,5 +1,5 @@
-import 'package:admin_dashboard/ui/shared/widgets/labels/custom_labels.dart';
 import 'package:flutter/material.dart';
+import '/ui/shared/widgets/labels/custom_labels.dart';
 
 class PageNotFoundView extends StatelessWidget {
   const PageNotFoundView({Key? key}) : super(key: key);

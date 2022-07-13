@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:admin_dashboard/ui/shared/widgets/cards/whirte_card.dart';
-import 'package:admin_dashboard/ui/shared/widgets/labels/custom_labels.dart';
+import '/ui/shared/widgets/cards/whirte_card.dart';
+import '/ui/shared/widgets/labels/custom_labels.dart';
 
 class BlankView extends StatelessWidget {
   const BlankView({Key? key}) : super(key: key);

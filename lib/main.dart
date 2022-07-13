@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:admin_dashboard/providers/providers.dart';
 
-import 'package:admin_dashboard/router/router.dart';
-import 'package:admin_dashboard/api/cafe_api.dart';
-import 'package:admin_dashboard/services/local_storage.dart';
-import 'package:admin_dashboard/services/notifications_service.dart';
-import 'package:admin_dashboard/services/navigation_service.dart';
-import 'package:admin_dashboard/ui/layouts/auth_layout.dart';
-import 'package:admin_dashboard/ui/layouts/dashboard/dashboard_layout.dart';
-import 'package:admin_dashboard/ui/layouts/splash/splash_layout.dart';
+import '/router/router.dart';
+import '/api/cafe_api.dart';
+import '/services/local_storage.dart';
+import '/services/notifications_service.dart';
+import '/services/navigation_service.dart';
+import '/ui/layouts/auth_layout.dart';
+import '/ui/layouts/dashboard/dashboard_layout.dart';
+import '/ui/layouts/splash/splash_layout.dart';
 
 void main() async {
   //BD - local
