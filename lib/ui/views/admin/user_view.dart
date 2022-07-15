@@ -162,9 +162,8 @@ class _PhotoContainer extends StatelessWidget {
     final image = (user.img == null)
         ? const Image(image: AssetImage('assets/no-photo.png'))
         : FadeInImage.assetNetwork(
-            placeholder: 'loader.gif',
+            placeholder: 'assets/loader.gif',
             image: user.img!,
-            fadeInDuration: const Duration(milliseconds: 2000),
           );
 
     return WhiteCard(

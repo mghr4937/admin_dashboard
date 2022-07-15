@@ -25,7 +25,8 @@ class NotificationService {
       content: SizedBox(
         width: 100,
         height: 100,
-        child: Center(child: CircularProgressIndicator(color: Colors.green, strokeWidth: 10)),
+        child: Center(child: Image(image: AssetImage('assets/football-soccer.gif'))),
+        //     child: Center(child: CircularProgressIndicator(color: Colors.green, strokeWidth: 10)),
       ),
     );
 

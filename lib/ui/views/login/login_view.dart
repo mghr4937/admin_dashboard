@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart'; //
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:email_validator/email_validator.dart';
+import '/ui/shared/widgets/mixins/validation_mixin.dart';
 import '/router/router.dart';
 import '/providers/login_provider.dart';
 import '/providers/forms/login_form_provider.dart';
@@ -8,7 +8,7 @@ import '/ui/shared/widgets/buttons/curtom_outlined_button.dart';
 import '/ui/shared/widgets/buttons/link_text.dart';
 import '/ui/shared/widgets/inputs/custom_inputs.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatelessWidget with ValidationMixin {
   const LoginView({Key? key}) : super(key: key);
 
   @override
@@ -36,11 +36,9 @@ class LoginView extends StatelessWidget {
                       children: [
                         //email
                         TextFormField(
+                          keyboardType: TextInputType.emailAddress,
                           onFieldSubmitted: (_) => onSubmit(loginFormProvider, loginProvider),
-                          validator: (value) {
-                            if (!EmailValidator.validate(value ?? '')) return 'Email no valido';
-                            return null;
-                          },
+                          validator: (value) => validateEmail(value ?? ''),
                           onChanged: (value) => loginFormProvider.email = value,
                           style: const TextStyle(color: Colors.white),
                           decoration: CustomInputs.loginInputDecoration(
@@ -50,11 +48,7 @@ class LoginView extends StatelessWidget {
                         //password
                         TextFormField(
                           onFieldSubmitted: (_) => onSubmit(loginFormProvider, loginProvider),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) return 'Ingrese su contraseña';
-                            if (value.length < 6) return 'Muy corta...';
-                            return null;
-                          },
+                          validator: (value) => validatePassword(value ?? ''),
                           onChanged: (value) => loginFormProvider.password = value,
                           obscureText: true,
                           style: const TextStyle(color: Colors.white),

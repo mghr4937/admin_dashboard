@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:email_validator/email_validator.dart';
+import '/router/router.dart';
 import '/providers/forms/register_form_provider.dart';
 import '/providers/login_provider.dart';
-import '/router/router.dart';
+import '/ui/shared/widgets/mixins/validation_mixin.dart';
 import '/ui/shared/widgets/buttons/curtom_outlined_button.dart';
 import '/ui/shared/widgets/buttons/link_text.dart';
 import '/ui/shared/widgets/inputs/custom_inputs.dart';
 
-class RegisterView extends StatelessWidget {
+class RegisterView extends StatelessWidget with ValidationMixin {
   const RegisterView({Key? key}) : super(key: key);
 
   @override
@@ -32,11 +32,8 @@ class RegisterView extends StatelessWidget {
                   child: Column(
                     children: [
                       TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) return 'Ingrese nombre de usuario';
-                          if (value.length < 4) return 'Muy corto...';
-                          return null;
-                        },
+                        keyboardType: TextInputType.name,
+                        validator: (value) => validateText(value ?? ''),
                         onChanged: (value) => registerFormProvider.name = value,
                         style: const TextStyle(color: Colors.white),
                         decoration: CustomInputs.loginInputDecoration(
@@ -44,10 +41,8 @@ class RegisterView extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
-                        validator: (value) {
-                          if (!EmailValidator.validate(value ?? '')) return 'Email no valido';
-                          return null;
-                        },
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) => validateEmail(value ?? ''),
                         onChanged: (value) => registerFormProvider.email = value,
                         style: const TextStyle(color: Colors.white),
                         decoration: CustomInputs.loginInputDecoration(
@@ -55,11 +50,7 @@ class RegisterView extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) return 'Ingrese su contraseña';
-                          if (value.length < 6) return 'Muy corta...';
-                          return null;
-                        },
+                        validator: (value) => validatePassword(value ?? ''),
                         onChanged: (value) => registerFormProvider.password = value,
                         obscureText: true,
                         style: const TextStyle(color: Colors.white),
