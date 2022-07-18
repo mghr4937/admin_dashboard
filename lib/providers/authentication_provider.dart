@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:admin_dashboard/router/router.dart';
@@ -17,14 +18,26 @@ class AuthenticationProvider extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  void signInWithGoogle() async {
+  Future<void> signInWithGoogle() async {
     User? user;
     late UserCredential userCredential;
     try {
       // The `GoogleAuthProvider` can only be used while running on the web
       if (kIsWeb) {
-        GoogleAuthProvider authProvider = GoogleAuthProvider();
-        userCredential = await _auth.signInWithPopup(authProvider);
+        await Firebase.initializeApp();
+        // Trigger the authentication flow
+        final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+        // Obtain the auth details from the request
+        final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+        // Create a new credential
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
+        // Once signed in, return the UserCredential
+        userCredential = await _auth.signInWithCredential(credential);
       } else {
         final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
         if (googleSignInAccount != null) {
@@ -51,6 +64,7 @@ class AuthenticationProvider extends ChangeNotifier {
         NotificationService.showSnackBarError('Oppps, Credenciales invalidas :)');
       }
     } catch (e) {
+      print(e);
       NotificationService.showSnackBarError('Oppps, Algo salio mal. Intente nuevamente :)');
     }
   }

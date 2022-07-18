@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/ui/shared/widgets/buttons/google_sing_in_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/ui/shared/widgets/mixins/validation_mixin.dart';
@@ -37,7 +38,7 @@ class LoginView extends StatelessWidget with ValidationMixin {
                         //email
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
-                          onFieldSubmitted: (_) => onSubmit(loginFormProvider, loginProvider),
+                          onFieldSubmitted: (_) => onSubmitMailPasswond(loginFormProvider, loginProvider),
                           validator: (value) => validateEmail(value ?? ''),
                           onChanged: (value) => loginFormProvider.email = value,
                           style: const TextStyle(color: Colors.white),
@@ -47,7 +48,7 @@ class LoginView extends StatelessWidget with ValidationMixin {
                         const SizedBox(height: 10),
                         //password
                         TextFormField(
-                          onFieldSubmitted: (_) => onSubmit(loginFormProvider, loginProvider),
+                          onFieldSubmitted: (_) => onSubmitMailPasswond(loginFormProvider, loginProvider),
                           validator: (value) => validatePassword(value ?? ''),
                           onChanged: (value) => loginFormProvider.password = value,
                           obscureText: true,
@@ -56,10 +57,22 @@ class LoginView extends StatelessWidget with ValidationMixin {
                               hint: '**********', label: 'Contraseña', iconData: Icons.lock),
                         ),
                         const SizedBox(height: 10),
-                        CustomOutlinedButton(
-                          onPressed: () => onSubmit(loginFormProvider, loginProvider),
-                          text: 'Ingresar',
+
+                        SizedBox(
+                          width: double.infinity, // <-- match_parent
+                          //   height: double.infinity, // <-- match-parent
+                          child: CustomOutlinedButton(
+                            onPressed: () => onSubmitMailPasswond(loginFormProvider, loginProvider),
+                            text: 'Ingresar',
+                          ),
                         ),
+                        const SizedBox(height: 10),
+                        const SizedBox(
+                          width: double.infinity,
+                          child: GoogleSignInButton(),
+                        ),
+                        const SizedBox(height: 10),
+
                         const SizedBox(height: 10),
                         LinkText(
                           text: 'Registarse',
@@ -76,7 +89,7 @@ class LoginView extends StatelessWidget with ValidationMixin {
         }));
   }
 
-  void onSubmit(LoginFormProvider loginFormProvider, AuthenticationProvider loginProvider) {
+  void onSubmitMailPasswond(LoginFormProvider loginFormProvider, AuthenticationProvider loginProvider) {
     final isValid = loginFormProvider.validateForm();
     if (isValid) loginProvider.loginUser(loginFormProvider.email, loginFormProvider.password);
   }
