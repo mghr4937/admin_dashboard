@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // new
+import 'firebase_options.dart';
+//import 'src/authentication.dart';                  // new
+
 import 'package:admin_dashboard/providers/providers.dart';
 
 import '/router/router.dart';
@@ -14,6 +19,11 @@ import '/ui/layouts/splash/splash_layout.dart';
 void main() async {
   //BD - local
   await LocalStorage.configurePress();
+  //firebasw
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   //api
   CafeApi.configure();
   Flurorouter.configureRoute();
@@ -27,7 +37,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(lazy: false, create: (context) => LoginProvider()),
+        ChangeNotifierProvider(lazy: false, create: (context) => AuthenticationProvider()),
         ChangeNotifierProvider(lazy: false, create: (context) => SideBarProvider()),
         ChangeNotifierProvider(create: (context) => CategoriesProvider()),
         ChangeNotifierProvider(create: (context) => UsersProvider()),
@@ -52,11 +62,11 @@ class MyApp extends StatelessWidget {
       scaffoldMessengerKey: NotificationService.messengerKey,
       builder: ((context, child) {
         //print('token: ${LocalStorage.prefs.getString('token')}');
-        final authProvider = Provider.of<LoginProvider>(context);
-        if (authProvider.authStatus == AuthStatus.checking) {
+        final authProvider = Provider.of<AuthenticationProvider>(context);
+        if (authProvider.status == AuthStatus.authenticating) {
           return const SplashLayout();
         }
-        if (authProvider.authStatus == AuthStatus.authenticated) {
+        if (authProvider.status == AuthStatus.authenticated) {
           return DashboardLayout(child: child!);
         } else {
           return AuthLayout(child: child!);

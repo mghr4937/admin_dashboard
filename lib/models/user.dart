@@ -1,22 +1,17 @@
 import 'dart:convert';
 
-class User {
-  User(
-      {required this.role,
-      required this.state,
-      required this.google,
-      required this.name,
-      required this.email,
-      required this.uid,
-      this.img});
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/widgets.dart';
+
+class User with ChangeNotifier {
+  User({required this.role, required this.name, required this.email, required this.id, this.photoURL});
 
   String role;
-  bool state;
-  bool google;
+
   String name;
   String email;
-  String uid;
-  String? img;
+  String id;
+  String? photoURL;
 
   factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
@@ -24,21 +19,36 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> json) => User(
         role: json["rol"],
-        state: json["estado"],
-        google: json["google"],
         name: json["nombre"],
         email: json["correo"],
-        uid: json["uid"],
-        img: json["img"],
+        id: json["uid"],
+        photoURL: json["img"],
       );
 
   Map<String, dynamic> toMap() => {
         "rol": role,
-        "estado": state,
-        "google": google,
         "nombre": name,
         "correo": email,
-        "uid": uid,
-        "img": img,
+        "uid": id,
+        "img": photoURL,
       };
+
+  factory User.fromFirestore(DocumentSnapshot userDoc) {
+    final userData = userDoc.data() as dynamic;
+    return User(
+        id: userDoc.id,
+        name: userData['displayName'],
+        photoURL: userData['photoURL'],
+        email: userData['email'],
+        role: '');
+  }
+
+  void setFromFireStore(DocumentSnapshot userDoc) {
+    final userData = userDoc.data() as dynamic;
+    id = userDoc.id;
+    name = userData['displayName'];
+    photoURL = userData['photoURL'];
+    email = userData['email'];
+    notifyListeners();
+  }
 }

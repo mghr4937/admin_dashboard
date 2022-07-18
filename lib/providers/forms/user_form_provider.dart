@@ -16,7 +16,7 @@ class UserFormProvider extends ChangeNotifier {
     if (!isValidForm()) return false;
     final data = {'nombre': user!.name, 'correo': user!.email};
     try {
-      final response = await CafeApi.httpPut('/usuarios/${user!.uid}', data);
+      final response = await CafeApi.httpPut('/usuarios/${user!.id}', data);
       print(response);
       return true;
     } on DioError catch (e) {
@@ -32,15 +32,13 @@ class UserFormProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  copyUserWith({String? role, bool? state, bool? google, String? name, String? email, String? uid, String? img}) {
+  copyUserWith({String? role, String? name, String? email, String? uid, String? img}) {
     user = User(
         role: role ?? user!.role,
-        state: state ?? user!.state,
-        google: google ?? user!.google,
         name: name ?? user!.name,
         email: email ?? user!.email,
-        uid: uid ?? user!.uid,
-        img: img ?? user!.img);
+        id: uid ?? user!.id,
+        photoURL: img ?? user!.photoURL);
     notifyListeners();
   }
 

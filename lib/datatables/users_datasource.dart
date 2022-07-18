@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '/services/navigation_service.dart';
-import '/models/user.dart';
+import '../models/user.dart';
 
 class UsersDataSource extends DataTableSource {
   final List<User> users;
@@ -11,9 +11,9 @@ class UsersDataSource extends DataTableSource {
   DataRow getRow(int index) {
     final User user = users[index];
 
-    final image = (user.img == null)
+    final image = (user.photoURL == null)
         ? const Image(image: AssetImage('assets/no-photo.png'), width: 35, height: 35)
-        : FadeInImage.assetNetwork(placeholder: 'assets/loader.gif', image: user.img!, width: 35, height: 35);
+        : FadeInImage.assetNetwork(placeholder: 'assets/loader.gif', image: user.photoURL!, width: 35, height: 35);
 
     return DataRow.byIndex(
       index: index,
@@ -21,11 +21,11 @@ class UsersDataSource extends DataTableSource {
         DataCell(ClipOval(child: image)),
         DataCell(Text(user.name)),
         DataCell(Text(user.email)),
-        DataCell(Text(user.uid)),
+        DataCell(Text(user.id)),
         DataCell(IconButton(
           icon: const Icon(Icons.mode_edit_outlined),
           onPressed: () {
-            NavigationService.replaceTo('/dashboard/users/${user.uid}');
+            NavigationService.replaceTo('/dashboard/users/${user.id}');
           },
         )),
       ],

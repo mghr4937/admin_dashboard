@@ -1,11 +1,11 @@
-import 'package:admin_dashboard/providers/login_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:admin_dashboard/providers/authentication_provider.dart';
 import 'package:admin_dashboard/providers/sidebar_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/ui/shared/widgets/menus/sidebar/custom_menu_item.dart';
-import 'package:flutter/material.dart';
 import 'package:admin_dashboard/ui/shared/widgets/logo.dart';
-import 'package:provider/provider.dart';
 //import 'package:admin_dashboard/ui/layouts/auth/widgets/text_separator.dart';
 
 class SideBar extends StatelessWidget {
@@ -28,7 +28,7 @@ class SideBar extends StatelessWidget {
         physics: const ClampingScrollPhysics(),
         children: [
           const Logo(),
-          const SizedBox(height: 50),
+          const SizedBox(height: 30),
           //const TextSeparator(text: 'main'),
           CustomMenuItem(
             isActive: sideBarProvider.currentPage == Flurorouter.dashboardPath,
@@ -45,7 +45,7 @@ class SideBar extends StatelessWidget {
               icon: const Icon(Icons.person_search_outlined),
               onPressed: () => navigateTo(Flurorouter.usersPath)),
 
-          const SizedBox(height: 50),
+          const SizedBox(height: 30),
 
           CustomMenuItem(
             isActive: sideBarProvider.currentPage == Flurorouter.categoriesPath,
@@ -61,17 +61,23 @@ class SideBar extends StatelessWidget {
             onPressed: () => navigateTo(Flurorouter.blankPath),
           ),
           CustomMenuItem(
+            isActive: sideBarProvider.currentPage == Flurorouter.animationPath,
+            text: 'Animation View',
+            icon: const Icon(Icons.animation_outlined),
+            onPressed: () => navigateTo(Flurorouter.animationPath),
+          ),
+          CustomMenuItem(
             isActive: sideBarProvider.currentPage == Flurorouter.iconsPath,
             text: 'Iconos',
             icon: const Icon(Icons.table_bar_outlined),
             onPressed: () => navigateTo(Flurorouter.iconsPath),
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height: 20),
           CustomMenuItem(text: 'Configuración', icon: const Icon(Icons.settings_outlined), onPressed: () {}),
           CustomMenuItem(
               text: 'Salir',
               icon: const Icon(Icons.logout_outlined),
-              onPressed: () => Provider.of<LoginProvider>(context, listen: false).logout()),
+              onPressed: () => Provider.of<AuthenticationProvider>(context, listen: false).signOut()),
         ],
       ),
     );

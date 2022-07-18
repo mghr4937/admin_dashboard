@@ -44,7 +44,7 @@ class UsersProvider extends ChangeNotifier {
 
   void refreshUser(User newUser) {
     users = users.map((user) {
-      if (user.uid == newUser.uid) {
+      if (user.id == newUser.id) {
         user = newUser;
       }
 

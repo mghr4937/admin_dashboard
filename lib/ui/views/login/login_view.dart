@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/ui/shared/widgets/mixins/validation_mixin.dart';
 import '/router/router.dart';
-import '/providers/login_provider.dart';
+import '/providers/authentication_provider.dart';
 import '/providers/forms/login_form_provider.dart';
 import '/ui/shared/widgets/buttons/curtom_outlined_button.dart';
 import '/ui/shared/widgets/buttons/link_text.dart';
@@ -13,7 +13,7 @@ class LoginView extends StatelessWidget with ValidationMixin {
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<LoginProvider>(context);
+    final loginProvider = Provider.of<AuthenticationProvider>(context);
 
     return ChangeNotifierProvider(
         create: (context) => LoginFormProvider(),
@@ -76,8 +76,8 @@ class LoginView extends StatelessWidget with ValidationMixin {
         }));
   }
 
-  void onSubmit(LoginFormProvider loginFormProvider, LoginProvider loginProvider) {
+  void onSubmit(LoginFormProvider loginFormProvider, AuthenticationProvider loginProvider) {
     final isValid = loginFormProvider.validateForm();
-    if (isValid) loginProvider.login(loginFormProvider.email, loginFormProvider.password);
+    if (isValid) loginProvider.loginUser(loginFormProvider.email, loginFormProvider.password);
   }
 }

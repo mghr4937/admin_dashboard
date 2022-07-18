@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/router/router.dart';
 import '/providers/forms/register_form_provider.dart';
-import '/providers/login_provider.dart';
+import '/providers/authentication_provider.dart';
 import '/ui/shared/widgets/mixins/validation_mixin.dart';
 import '/ui/shared/widgets/buttons/curtom_outlined_button.dart';
 import '/ui/shared/widgets/buttons/link_text.dart';
@@ -17,7 +17,7 @@ class RegisterView extends StatelessWidget with ValidationMixin {
         create: (context) => RegisterFormProvider(),
         child: Builder(builder: (context) {
           final registerFormProvider = Provider.of<RegisterFormProvider>(context, listen: false);
-          final loginFormProvider = Provider.of<LoginProvider>(context, listen: false);
+          final loginFormProvider = Provider.of<AuthenticationProvider>(context, listen: false);
 
           return Container(
             margin: const EdgeInsets.only(top: 50),
@@ -62,8 +62,11 @@ class RegisterView extends StatelessWidget with ValidationMixin {
                         onPressed: () {
                           final validForm = registerFormProvider.validateForm();
                           if (!validForm) return;
-                          loginFormProvider.register(
-                              registerFormProvider.name, registerFormProvider.email, registerFormProvider.password);
+                          loginFormProvider.signUpUser(
+                            registerFormProvider.email,
+                            registerFormProvider.password,
+                            registerFormProvider.name,
+                          );
                         },
                         text: 'Kick Off',
                       ),

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '/providers/providers.dart';
 import 'package:email_validator/email_validator.dart';
 import '/services/navigation_service.dart';
-import '/models/user.dart';
+import '../../../models/user.dart';
 import '/services/notifications_service.dart';
 
 import '/ui/shared/widgets/buttons/custom_icon_button.dart';
@@ -159,11 +159,11 @@ class _PhotoContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final user = userFormProvider.user!;
-    final image = (user.img == null)
+    final image = (user.photoURL == null)
         ? const Image(image: AssetImage('assets/no-photo.png'))
         : FadeInImage.assetNetwork(
             placeholder: 'assets/loader.gif',
-            image: user.img!,
+            image: user.photoURL!,
           );
 
     return WhiteCard(
@@ -206,7 +206,7 @@ class _PhotoContainer extends StatelessWidget {
                               if (result != null) {
                                 NotificationService.showProcessingIndicator(context);
                                 final userResponse = await userFormProvider.uploadImage(
-                                    '/uploads/usuarios/${user.uid}', result.files.first.bytes!);
+                                    '/uploads/usuarios/${user.id}', result.files.first.bytes!);
                                 Provider.of<UsersProvider>(context, listen: false).refreshUser(userResponse);
                                 Navigator.of(context).pop();
                               } else {

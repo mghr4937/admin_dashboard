@@ -19,6 +19,7 @@ class Flurorouter {
   static String usersPath = '/dashboard/users';
   static String userPath = '/dashboard/users/:uid';
   static String blankPath = '/dashboard/blank';
+  static String animationPath = '/dashboard/animation';
 
   static void configureRoute() {
     router.define(rootPath,
@@ -48,6 +49,11 @@ class Flurorouter {
 
     router.define(blankPath,
         handler: DashboardHandlers.blank,
+        transitionType: TransitionType.none,
+        transitionDuration: const Duration(milliseconds: 100));
+
+    router.define(animationPath,
+        handler: DashboardHandlers.animation,
         transitionType: TransitionType.none,
         transitionDuration: const Duration(milliseconds: 100));
 
