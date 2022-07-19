@@ -11,10 +11,13 @@
             "args": [
                 "-d",
                 "chrome",
+                "--web-renderer",
+                "html",
                 "--web-hostname",
                 "localhost",
                 "--web-port",
-                "5000"
+                "5000",
+                
             ]
         },
         {
@@ -25,10 +28,13 @@
             "args": [
                 "-d",
                 "chrome",
-                "--web-hostname",
+                "--web-renderer",
+                "html",
+                "--web-hostname",               
                 "localhost",
                 "--web-port",
-                "5000"
+                "5000",
+                
             ]
         },
         {
@@ -39,10 +45,13 @@
             "args": [
                 "-d",
                 "chrome",
-                "--web-hostname",
+                "--web-renderer",
+                "html",
+                "--web-hostname",              
                 "localhost",
                 "--web-port",
-                "5000"
+                "5000",
+               
             ]
         }
     ]

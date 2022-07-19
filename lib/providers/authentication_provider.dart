@@ -13,6 +13,7 @@ enum AuthStatus { uninitialized, authenticated, authenticating, unauthenticated 
 
 class AuthenticationProvider extends ChangeNotifier {
   late User _user;
+  late UserData userData;
   AuthStatus status = AuthStatus.unauthenticated;
 
   User get getUser => _user;
@@ -77,6 +78,7 @@ class AuthenticationProvider extends ChangeNotifier {
     try {
       CollectionReference users = FirebaseFirestore.instance.collection('users');
       UserData userData = UserData.fromFirestore(firebaseUser);
+      userData.photoURL = 'assets/no-photo.png';
       users.add(userData.toMap());
     } catch (e) {
       print(e);

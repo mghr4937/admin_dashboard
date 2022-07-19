@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // new
 import 'firebase_options.dart';
-//import 'src/authentication.dart';                  // new
-
 import 'package:admin_dashboard/providers/providers.dart';
-
 import '/router/router.dart';
 import '/api/cafe_api.dart';
 import '/services/local_storage.dart';
@@ -55,7 +51,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Futim - Admin Dashboard',
+      title: 'Fuubol - Admin Dashboard',
       initialRoute: '/',
       onGenerateRoute: Flurorouter.router.generator,
       navigatorKey: NavigationService.navigatorKey,
