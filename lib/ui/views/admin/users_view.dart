@@ -28,7 +28,7 @@ class UsersView extends StatelessWidget {
                 label: Text('Nombre', style: CustomLabels.h3),
                 onSort: (columnIndex, _) {
                   usersProvider.sortColumnIndex = columnIndex;
-                  usersProvider.sort<String>((user) => user.name);
+                  usersProvider.sort<String>((user) => user.displayName);
                 },
               ),
               DataColumn(

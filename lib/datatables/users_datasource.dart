@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import '/services/navigation_service.dart';
-import '../models/user.dart';
+import '../models/user_data.dart';
 
 class UsersDataSource extends DataTableSource {
-  final List<User> users;
+  final List<UserData> users;
 
   UsersDataSource(this.users);
 
   @override
   DataRow getRow(int index) {
-    final User user = users[index];
+    final UserData user = users[index];
 
     final image = (user.photoURL == null)
         ? const Image(image: AssetImage('assets/no-photo.png'), width: 35, height: 35)
@@ -19,13 +19,13 @@ class UsersDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(ClipOval(child: image)),
-        DataCell(Text(user.name)),
+        DataCell(Text(user.displayName)),
         DataCell(Text(user.email)),
-        DataCell(Text(user.id)),
+        DataCell(Text(user.uid)),
         DataCell(IconButton(
           icon: const Icon(Icons.mode_edit_outlined),
           onPressed: () {
-            NavigationService.replaceTo('/dashboard/users/${user.id}');
+            NavigationService.replaceTo('/dashboard/users/${user.uid}');
           },
         )),
       ],

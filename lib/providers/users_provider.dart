@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/models/http/users_response.dart';
-import 'package:admin_dashboard/models/user.dart';
+import 'package:admin_dashboard/models/user_data.dart';
 
 class UsersProvider extends ChangeNotifier {
-  List<User> users = [];
+  List<UserData> users = [];
   bool isLoading = true;
   bool isAscending = true;
   int? sortColumnIndex;
@@ -21,7 +21,7 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void sort<T>(Comparable<T> Function(User user) getField) {
+  void sort<T>(Comparable<T> Function(UserData user) getField) {
     users.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
@@ -31,10 +31,10 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<User?> getUserById(String uid) async {
+  Future<UserData?> getUserById(String uid) async {
     try {
       final response = await CafeApi.httpGet('/usuarios/$uid');
-      final userResponse = User.fromMap(response);
+      final userResponse = UserData.fromMap(response);
 
       return userResponse;
     } catch (e) {
@@ -42,9 +42,9 @@ class UsersProvider extends ChangeNotifier {
     }
   }
 
-  void refreshUser(User newUser) {
+  void refreshUser(UserData newUser) {
     users = users.map((user) {
-      if (user.id == newUser.id) {
+      if (user.uid == newUser.uid) {
         user = newUser;
       }
 

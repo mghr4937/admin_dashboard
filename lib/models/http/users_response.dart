@@ -3,7 +3,7 @@
 //     final usersResponse = usersResponseFromMap(jsonString);
 import 'dart:convert';
 
-import 'package:admin_dashboard/models/user.dart';
+import 'package:admin_dashboard/models/user_data.dart';
 
 class UsersResponse {
   UsersResponse({
@@ -12,7 +12,7 @@ class UsersResponse {
   });
 
   int total;
-  List<User> usuarios;
+  List<UserData> usuarios;
 
   factory UsersResponse.fromJson(String str) => UsersResponse.fromMap(json.decode(str));
 
@@ -20,7 +20,7 @@ class UsersResponse {
 
   factory UsersResponse.fromMap(Map<String, dynamic> json) => UsersResponse(
         total: json["total"],
-        usuarios: List<User>.from(json["usuarios"].map((x) => User.fromMap(x))),
+        usuarios: List<UserData>.from(json["usuarios"].map((x) => UserData.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {

@@ -1,3 +1,5 @@
+import 'package:admin_dashboard/models/user_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +19,7 @@ class AuthenticationProvider extends ChangeNotifier {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  final FirebaseFirestore _firestoreDb = FirebaseFirestore.instance;
 
   Future<void> signInWithGoogle() async {
     User? user;
@@ -56,6 +59,7 @@ class AuthenticationProvider extends ChangeNotifier {
         _user = user;
 
         status = AuthStatus.authenticated;
+        _createUserInFirestore(user);
         notifyListeners();
         NavigationService.replaceTo(Flurorouter.dashboardPath);
       }
@@ -63,6 +67,17 @@ class AuthenticationProvider extends ChangeNotifier {
       if (e.code == 'invalid-credential') {
         NotificationService.showSnackBarError('Oppps, Credenciales invalidas :)');
       }
+    } catch (e) {
+      print(e);
+      NotificationService.showSnackBarError('Oppps, Algo salio mal. Intente nuevamente :)');
+    }
+  }
+
+  void _createUserInFirestore(User firebaseUser) {
+    try {
+      CollectionReference users = FirebaseFirestore.instance.collection('users');
+      UserData userData = UserData.fromFirestore(firebaseUser);
+      users.add(userData.toMap());
     } catch (e) {
       print(e);
       NotificationService.showSnackBarError('Oppps, Algo salio mal. Intente nuevamente :)');

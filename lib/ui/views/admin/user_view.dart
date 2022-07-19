@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '/providers/providers.dart';
 import 'package:email_validator/email_validator.dart';
 import '/services/navigation_service.dart';
-import '../../../models/user.dart';
+import '../../../models/user_data.dart';
 import '/services/notifications_service.dart';
 
 import '/ui/shared/widgets/buttons/custom_icon_button.dart';
@@ -22,7 +22,7 @@ class UserView extends StatefulWidget {
 }
 
 class _UserViewState extends State<UserView> {
-  User? user;
+  UserData? user;
 
   @override
   void initState() {
@@ -112,7 +112,7 @@ class _UserViewForm extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(children: [
           TextFormField(
-              initialValue: user.name,
+              initialValue: user.displayName,
               validator: (value) {
                 if (value == null || value.isEmpty) return 'Ingrese nombre de usuario';
                 if (value.length < 4) return 'Muy corto...';
@@ -138,7 +138,7 @@ class _UserViewForm extends StatelessWidget {
                 onPressed: () async {
                   final saved = await userFormProvider.updateUser();
                   if (saved) {
-                    NotificationService.showSnackSuccess('Usuario ${user.name} actualizado!');
+                    NotificationService.showSnackSuccess('Usuario ${user.displayName} actualizado!');
                     usersProvider.refreshUser(user);
                     NavigationService.replaceTo('/dashboard/users');
                   } else {
@@ -206,7 +206,7 @@ class _PhotoContainer extends StatelessWidget {
                               if (result != null) {
                                 NotificationService.showProcessingIndicator(context);
                                 final userResponse = await userFormProvider.uploadImage(
-                                    '/uploads/usuarios/${user.id}', result.files.first.bytes!);
+                                    '/uploads/usuarios/${user.uid}', result.files.first.bytes!);
                                 Provider.of<UsersProvider>(context, listen: false).refreshUser(userResponse);
                                 Navigator.of(context).pop();
                               } else {
@@ -220,7 +220,7 @@ class _PhotoContainer extends StatelessWidget {
                     ],
                   )),
               const SizedBox(height: 20),
-              Text(user.name, style: CustomLabels.h4)
+              Text(user.displayName, style: CustomLabels.h4)
             ]),
       ),
     );
