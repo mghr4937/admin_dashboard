@@ -1,22 +1,27 @@
+import 'package:admin_dashboard/repositories/user_data_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/models/http/users_response.dart';
 import 'package:admin_dashboard/models/user_data.dart';
 
-class UsersProvider extends ChangeNotifier {
+class UserDataProvider extends ChangeNotifier {
   List<UserData> users = [];
   bool isLoading = true;
   bool isAscending = true;
   int? sortColumnIndex;
 
-  UsersProvider() {
-    getPaginatedUsers();
+  //final UserDataRepository repository = UserDataRepository();
+  UserDataProvider() {
+    getUsers();
   }
 
-  getPaginatedUsers() async {
+  getUsers() async {
+    //users = FirebaseFirestore.instance.collection('users');
+
     final response = await CafeApi.httpGet('/usuarios?limite=100&desde=0');
     final usersResponse = UsersResponse.fromMap(response);
-    users = [...usersResponse.usuarios];
+
     isLoading = false;
     notifyListeners();
   }

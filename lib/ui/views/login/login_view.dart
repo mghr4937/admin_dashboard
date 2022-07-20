@@ -73,7 +73,6 @@ class LoginView extends StatelessWidget with ValidationMixin {
                         ),
                         const SizedBox(height: 10),
 
-                        const SizedBox(height: 10),
                         LinkText(
                           text: 'Registarse',
                           onPress: () {

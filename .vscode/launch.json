@@ -10,9 +10,7 @@
             "type": "dart",
             "args": [
                 "-d",
-                "chrome",
-                "--web-renderer",
-                "html",
+                "chrome",               
                 "--web-hostname",
                 "localhost",
                 "--web-port",
@@ -27,9 +25,7 @@
             "flutterMode": "profile",
             "args": [
                 "-d",
-                "chrome",
-                "--web-renderer",
-                "html",
+                "chrome",               
                 "--web-hostname",               
                 "localhost",
                 "--web-port",
@@ -44,9 +40,7 @@
             "flutterMode": "release",
             "args": [
                 "-d",
-                "chrome",
-                "--web-renderer",
-                "html",
+                "chrome",               
                 "--web-hostname",              
                 "localhost",
                 "--web-port",

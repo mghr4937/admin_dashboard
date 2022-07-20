@@ -28,7 +28,7 @@ class _UserViewState extends State<UserView> {
   void initState() {
     super.initState();
 
-    final usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final usersProvider = Provider.of<UserDataProvider>(context, listen: false);
     final userFormProvider = Provider.of<UserFormProvider>(context, listen: false);
 
     usersProvider.getUserById(widget.uid).then((userResponse) {
@@ -103,7 +103,7 @@ class _UserViewForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final user = userFormProvider.user!;
-    final usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final usersProvider = Provider.of<UserDataProvider>(context, listen: false);
 
     return WhiteCard(
       title: 'Informacion Personal',
@@ -205,9 +205,9 @@ class _PhotoContainer extends StatelessWidget {
 
                               if (result != null) {
                                 NotificationService.showProcessingIndicator(context);
-                                final userResponse = await userFormProvider.uploadImage(
-                                    '/uploads/usuarios/${user.uid}', result.files.first.bytes!);
-                                Provider.of<UsersProvider>(context, listen: false).refreshUser(userResponse);
+                                // final userResponse = await userFormProvider.uploadImage(
+                                //      '/uploads/usuarios/${user.docid}', result.files.first.bytes!);
+                                //    Provider.of<UserDataProvider>(context, listen: false).refreshUser(userResponse);
                                 Navigator.of(context).pop();
                               } else {
                                 // User canceled the picker

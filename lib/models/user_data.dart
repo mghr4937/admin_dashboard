@@ -8,11 +8,10 @@ class UserData with ChangeNotifier {
   UserData({required this.role, required this.displayName, required this.email, required this.uid, this.photoURL});
 
   String role;
-
   String displayName;
   String email;
   String uid;
-  String? photoURL;
+  String? photoURL = 'assets/no-photo.png';
 
   factory UserData.fromJson(String str) => UserData.fromMap(json.decode(str));
 

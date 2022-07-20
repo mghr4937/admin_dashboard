@@ -1,10 +1,10 @@
+import 'package:admin_dashboard/ui/views/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:admin_dashboard/providers/providers.dart';
 import '/router/router.dart';
-import '/api/cafe_api.dart';
 import '/services/local_storage.dart';
 import '/services/notifications_service.dart';
 import '/services/navigation_service.dart';
@@ -21,7 +21,7 @@ void main() async {
   );
 
   //api
-  CafeApi.configure();
+  //CafeApi.configure();
   Flurorouter.configureRoute();
   runApp(const AppState());
 }
@@ -36,7 +36,7 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(lazy: false, create: (context) => AuthenticationProvider()),
         ChangeNotifierProvider(lazy: false, create: (context) => SideBarProvider()),
         ChangeNotifierProvider(create: (context) => CategoriesProvider()),
-        ChangeNotifierProvider(create: (context) => UsersProvider()),
+        ChangeNotifierProvider(create: (context) => UserDataProvider()),
         ChangeNotifierProvider(lazy: false, create: (context) => UserFormProvider()),
       ],
       child: const MyApp(),

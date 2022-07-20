@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import '/services/navigation_service.dart';
 import '../models/user_data.dart';
 
-class UsersDataSource extends DataTableSource {
+class UserDataSource extends DataTableSource {
   final List<UserData> users;
 
-  UsersDataSource(this.users);
+  UserDataSource(this.users);
 
   @override
   DataRow getRow(int index) {

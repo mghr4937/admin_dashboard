@@ -1,4 +1,5 @@
 import 'package:admin_dashboard/models/user_data.dart';
+import 'package:admin_dashboard/repositories/user_data_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -13,14 +14,16 @@ enum AuthStatus { uninitialized, authenticated, authenticating, unauthenticated 
 
 class AuthenticationProvider extends ChangeNotifier {
   late User _user;
-  late UserData userData;
+  late UserData _userData = UserData(role: '', displayName: '', email: '', uid: '');
   AuthStatus status = AuthStatus.unauthenticated;
 
   User get getUser => _user;
+  UserData get getUserData => _userData;
 
+  final UserDataRepository repository = UserDataRepository();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  final FirebaseFirestore _firestoreDb = FirebaseFirestore.instance;
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   Future<void> signInWithGoogle() async {
     User? user;
@@ -60,7 +63,7 @@ class AuthenticationProvider extends ChangeNotifier {
         _user = user;
 
         status = AuthStatus.authenticated;
-        _createUserInFirestore(user);
+        _saveUserInFirestore();
         notifyListeners();
         NavigationService.replaceTo(Flurorouter.dashboardPath);
       }
@@ -74,16 +77,30 @@ class AuthenticationProvider extends ChangeNotifier {
     }
   }
 
-  void _createUserInFirestore(User firebaseUser) {
+  void _saveUserInFirestore() async {
     try {
-      CollectionReference users = FirebaseFirestore.instance.collection('users');
-      UserData userData = UserData.fromFirestore(firebaseUser);
-      userData.photoURL = 'assets/no-photo.png';
-      users.add(userData.toMap());
+      bool exists = await _doesEmailAlreadyExist(_user.email!);
+      if (!exists) {
+        _userData = UserData.fromFirestore(_user);
+        _userData.photoURL = 'assets/no-photo.png';
+        users.add(_userData.toMap());
+      } else {
+        _userData = await repository.getUserByEmail(_user.email!);
+      }
     } catch (e) {
       print(e);
-      NotificationService.showSnackBarError('Oppps, Algo salio mal. Intente nuevamente :)');
+      NotificationService.showSnackBarError('Oppps, Algo salio mal. Guardando sus datos)');
     }
+  }
+
+  Future<bool> _doesEmailAlreadyExist(String email) async {
+    return await users.where('email', isEqualTo: email).get().then((value) {
+      if (value.docs.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 
   void signUpUser(String email, String password, String name) async {
@@ -92,9 +109,14 @@ class AuthenticationProvider extends ChangeNotifier {
 
       if (userCredential.user != null) {
         _user = userCredential.user!;
-        _user.updateDisplayName(name);
+        await _auth.currentUser!.updateDisplayName(name);
+        await _auth.currentUser!.reload();
+        _user = _auth.currentUser!;
+        _auth.userChanges();
 
+        _saveUserInFirestore();
         status = AuthStatus.authenticated;
+
         notifyListeners();
         NavigationService.replaceTo(Flurorouter.dashboardPath);
       }
@@ -109,6 +131,8 @@ class AuthenticationProvider extends ChangeNotifier {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
         _user = userCredential.user!;
+        // _userData =
+        _userData = await repository.getUserByEmail(_user.email!);
 
         status = AuthStatus.authenticated;
         notifyListeners();
