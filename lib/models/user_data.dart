@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 class UserData with ChangeNotifier {
   UserData({required this.role, required this.displayName, required this.email, required this.uid, this.photoURL});
 
-  String role;
+  String role = 'ADMIN';
   String displayName;
   String email;
   String uid;
@@ -33,22 +33,22 @@ class UserData with ChangeNotifier {
         "photoURL": photoURL,
       };
 
-  factory UserData.fromFirestore(User userFirestore) {
+  factory UserData.fromFirebaseAuth(User userFirestore) {
     return UserData(
         uid: userFirestore.uid,
         displayName: userFirestore.displayName!,
-        photoURL: userFirestore.photoURL,
+        photoURL: 'assets/no-photo.png',
         email: userFirestore.email!,
-        role: '');
+        role: 'ADMIN');
   }
 
-  void setFromFireStore(DocumentSnapshot userDoc) {
-    final userData = userDoc.data() as dynamic;
-    uid = userDoc.id;
-    displayName = userData['displayName'];
-    photoURL = userData['photoURL'];
-    email = userData['email'];
-    role = '';
-    notifyListeners();
-  }
+  //void setFromFireStore(DocumentSnapshot userDoc) {
+  //  final userData = userDoc.data() as dynamic;
+  //  uid = userDoc.id;
+  //  displayName = userData['displayName'];
+  //  photoURL = userData['photoURL'];
+  //  email = userData['email'];
+  //  role = 'ADMIN';
+  //  notifyListeners();
+  // }
 }

@@ -1,20 +1,20 @@
-import 'package:admin_dashboard/ui/views/login/login_view.dart';
+import 'package:admin_dashboard/providers/providers.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-import 'package:admin_dashboard/providers/providers.dart';
+
 import '/router/router.dart';
-import '/services/local_storage.dart';
-import '/services/notifications_service.dart';
 import '/services/navigation_service.dart';
+import '/services/notifications_service.dart';
 import '/ui/layouts/auth_layout.dart';
 import '/ui/layouts/dashboard/dashboard_layout.dart';
 import '/ui/layouts/splash/splash_layout.dart';
+import 'firebase_options.dart';
 
 void main() async {
   //BD - local
-  await LocalStorage.configurePress();
+  //await LocalStorage.configurePress();
+  WidgetsFlutterBinding.ensureInitialized();
   //firebasw
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -33,11 +33,14 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(lazy: false, create: (context) => AuthenticationProvider()),
-        ChangeNotifierProvider(lazy: false, create: (context) => SideBarProvider()),
+        ChangeNotifierProvider(
+            lazy: false, create: (context) => AuthenticationProvider()),
+        ChangeNotifierProvider(
+            lazy: false, create: (context) => SideBarProvider()),
         ChangeNotifierProvider(create: (context) => CategoriesProvider()),
         ChangeNotifierProvider(create: (context) => UserDataProvider()),
-        ChangeNotifierProvider(lazy: false, create: (context) => UserFormProvider()),
+        ChangeNotifierProvider(
+            lazy: false, create: (context) => UserFormProvider()),
       ],
       child: const MyApp(),
     );
@@ -71,7 +74,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
           scrollbarTheme: const ScrollbarThemeData().copyWith(
               thickness: MaterialStateProperty.all(10),
-              thumbColor: MaterialStateProperty.all(Colors.yellow.withOpacity(0.8)))),
+              thumbColor:
+                  MaterialStateProperty.all(Colors.yellow.withOpacity(0.8)))),
     );
   }
 }

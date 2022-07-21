@@ -79,7 +79,7 @@ class _MobileBody extends StatelessWidget {
         const CustomTitle(),
         Container(
           width: double.infinity,
-          height: 420,
+          height: 400,
           child: child,
         ),
         Container(

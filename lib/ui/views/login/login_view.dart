@@ -24,7 +24,7 @@ class LoginView extends StatelessWidget with ValidationMixin {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Container(
-              margin: const EdgeInsets.only(top: 100),
+              margin: const EdgeInsets.only(top: 20),
               padding: const EdgeInsets.symmetric(horizontal: 20),
               color: Colors.black,
               child: Center(

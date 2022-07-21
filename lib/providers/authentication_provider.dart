@@ -9,6 +9,7 @@ import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum AuthStatus { uninitialized, authenticated, authenticating, unauthenticated }
 
@@ -62,8 +63,12 @@ class AuthenticationProvider extends ChangeNotifier {
       if (user != null) {
         _user = user;
 
-        status = AuthStatus.authenticated;
         _saveUserInFirestore();
+
+        status = AuthStatus.authenticated;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('auth', true);
+
         notifyListeners();
         NavigationService.replaceTo(Flurorouter.dashboardPath);
       }
@@ -81,8 +86,7 @@ class AuthenticationProvider extends ChangeNotifier {
     try {
       bool exists = await _doesEmailAlreadyExist(_user.email!);
       if (!exists) {
-        _userData = UserData.fromFirestore(_user);
-        _userData.photoURL = 'assets/no-photo.png';
+        _userData = UserData.fromFirebaseAuth(_user);
         users.add(_userData.toMap());
       } else {
         _userData = await repository.getUserByEmail(_user.email!);
@@ -111,11 +115,14 @@ class AuthenticationProvider extends ChangeNotifier {
         _user = userCredential.user!;
         await _auth.currentUser!.updateDisplayName(name);
         await _auth.currentUser!.reload();
+
         _user = _auth.currentUser!;
         _auth.userChanges();
-
         _saveUserInFirestore();
+
         status = AuthStatus.authenticated;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('auth', true);
 
         notifyListeners();
         NavigationService.replaceTo(Flurorouter.dashboardPath);
@@ -135,6 +142,9 @@ class AuthenticationProvider extends ChangeNotifier {
         _userData = await repository.getUserByEmail(_user.email!);
 
         status = AuthStatus.authenticated;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('auth', true);
+
         notifyListeners();
         NavigationService.replaceTo(Flurorouter.dashboardPath);
       }
@@ -160,6 +170,9 @@ class AuthenticationProvider extends ChangeNotifier {
         await googleSignIn.signOut();
       }
       await _auth.signOut();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('auth', false);
+
       notifyListeners();
     } catch (e) {
       NotificationService.showSnackBarError('Oppps, Algo salio mal. Intente nuevamente :)');
