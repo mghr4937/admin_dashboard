@@ -42,6 +42,7 @@ dependencies:
   google_sign_in: ^5.4.0
   provider: ^6.0.3
   shared_preferences: ^2.0.15
+  video_player: ^2.4.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0

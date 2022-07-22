@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '/ui/shared/widgets/labels/custom_labels.dart';
 
 class CustomTitle extends StatelessWidget {
   const CustomTitle({Key? key}) : super(key: key);
@@ -7,21 +6,21 @@ class CustomTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(children: [
-        Image.asset('assets/logo-field.png', width: 150, height: 150),
+        Image.asset('assets/logo-field.png', width: 100, height: 100),
         //const Icon(Icons.sports_soccer, color: Colors.green, size: 100),
 
         const SizedBox(
           height: 20,
         ),
-        FittedBox(
-          fit: BoxFit.contain,
-          child: Text(
-            'Fúubool',
-            style: CustomLabels.logoText,
-          ),
-        )
+        // FittedBox(
+        //   fit: BoxFit.contain,
+        //   child: Text(
+        //     'Fúubool',
+        //     style: CustomLabels.logoText,
+        //   ),
+        // )
       ]),
     );
   }
