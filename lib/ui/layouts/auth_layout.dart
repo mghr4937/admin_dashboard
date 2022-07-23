@@ -1,93 +1,107 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '/ui/shared/widgets/custom_title.dart';
-import '/ui/shared/widgets/links_bar.dart';
-import '/ui/shared/widgets/background.dart';
+import 'package:video_player/video_player.dart';
 
-class AuthLayout extends StatelessWidget {
+import '/ui/shared/widgets/login_logo.dart';
+
+class AuthLayout extends StatefulWidget {
   const AuthLayout({Key? key, required this.child}) : super(key: key);
 
   final Widget child;
 
   @override
+  State<AuthLayout> createState() => _AuthLayoutState();
+}
+
+class _AuthLayoutState extends State<AuthLayout> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    try {
+      _controller = VideoPlayerController.asset('login_4k.mp4')
+        ..initialize().then((_) {
+          setState(() {});
+          _controller.setVolume(0.0);
+          _controller.removeListener(() {});
+          _controller.setLooping(true);
+          _controller.play();
+        });
+      super.initState();
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final ScrollController scollBarController = ScrollController();
     return Scaffold(
-        body: Scrollbar(
-      controller: scollBarController,
-      thumbVisibility: true,
-      child: ListView(
-        controller: scollBarController,
-        physics: const ClampingScrollPhysics(),
-        children: [
-          (size.width > 1000) ? _DesktopBody(child: child) : _MobileBody(child: child),
-
-          //LinksBar
-          const LinksBar()
-        ],
-      ),
-    ));
-  }
-}
-
-class _DesktopBody extends StatelessWidget {
-  final Widget child;
-
-  const _DesktopBody({Key? key, required this.child}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    return Container(
-      width: size.width,
-      height: size.height * 0.95,
-      color: Colors.black,
-      child: Row(children: [
-        // Background
-        const Background(),
-
-        //view container
-        Container(
-          width: 600,
-          height: double.infinity,
-          color: Colors.black,
-          child: Column(children: [
-            const SizedBox(height: 20),
-            const CustomTitle(),
-            const SizedBox(height: 50),
-            Expanded(child: child)
-          ]),
-        )
-      ]),
-    );
-  }
-}
-
-class _MobileBody extends StatelessWidget {
-  final Widget child;
-
-  const _MobileBody({Key? key, required this.child}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      //height: 1000,
-      color: Colors.black,
-      child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-        const SizedBox(height: 20),
-        const CustomTitle(),
-        Container(
-          width: double.infinity,
-          height: 420,
-          child: child,
+        body: Stack(
+      alignment: AlignmentDirectional.center,
+      children: <Widget>[
+        Transform.scale(
+          scale: _calculateAspectRatio(size.aspectRatio),
+          child: Center(
+            child: Container(
+              child: _controller.value.isInitialized
+                  ? AspectRatio(
+                      aspectRatio: _controller.value.aspectRatio,
+                      child: VideoPlayer(_controller),
+                    )
+                  : const Text("initializing"),
+            ),
+          ),
         ),
         Container(
-          width: double.infinity,
-          height: 400,
-          child: const Background(),
+          //alignment: Alignment.center,
+          margin: EdgeInsets.symmetric(vertical: _calculateMargin(size.height)),
+          width: 400,
+          color: Colors.black.withOpacity(0.5),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const SizedBox(height: 5),
+            const LoginLogo(),
+            //const SizedBox(height: 0),
+            Expanded(child: widget.child)
+          ]),
         )
-      ]),
-    );
+      ],
+    ));
+  }
+
+  double _calculateAspectRatio(double aspectRatio) {
+    var result = _controller.value.aspectRatio / aspectRatio;
+    if (result < 1) {
+      return 1.2;
+    } else {
+      return result;
+    }
+  }
+
+  double _calculateMargin(double height) {
+    if (height <= 600) {
+      return 0;
+    } else if (height < 700) {
+      return height * 0.12;
+    } else if (height < 741) {
+      return height * 0.15;
+    } else if (height < 821) {
+      return height * 0.15;
+    } else if (height <= 920) {
+      return height * 0.20;
+    } else if (height <= 1024) {
+      return height * 0.25;
+    } else {
+      return height * 0.28;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+    // _controller.pause();
   }
 }

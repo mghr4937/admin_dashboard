@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '/models/category.dart';
 import '/providers/categories_provider.dart';
 import '/services/notifications_service.dart';
-import '/ui/shared/widgets/buttons/curtom_outlined_button.dart';
+import '/ui/shared/widgets/buttons/custom_outlined_button.dart';
 import '/ui/shared/widgets/inputs/custom_inputs.dart';
 import '/ui/shared/widgets/labels/custom_labels.dart';
 
@@ -30,7 +31,8 @@ class _CategoryModalState extends State<CategoryModal> {
 
   @override
   Widget build(BuildContext context) {
-    final categoriesProvider = Provider.of<CategoriesProvider>(context, listen: false);
+    final categoriesProvider =
+        Provider.of<CategoriesProvider>(context, listen: false);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -67,7 +69,8 @@ class _CategoryModalState extends State<CategoryModal> {
             iconData: Icons.category_outlined,
             color: Colors.white,
           ),
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
         ),
         Container(
           margin: const EdgeInsets.only(top: 20),
@@ -98,7 +101,8 @@ class _CategoryModalState extends State<CategoryModal> {
   }
 
   BoxDecoration buildBoxDecoration() => const BoxDecoration(
-      borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       color: Colors.green,
       boxShadow: [BoxShadow(color: Colors.black26)]);
 }

@@ -13,7 +13,7 @@ class ValidationMixin {
   }
 
   String? validateText(String value) {
-    if (value.isEmpty || value.length > 3) return 'No valido';
+    if (value.isEmpty || value.length < 3) return 'No valido';
     return null;
   }
 }

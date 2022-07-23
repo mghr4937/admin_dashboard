@@ -28,16 +28,21 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   bouncing_widget: ^2.0.0
+  cloud_firestore: ^3.3.0
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
   email_validator: ^2.0.1
   file_picker: ^4.6.1
+  firebase_auth: ^3.4.2
+  firebase_core: ^1.19.2
   fluro: ^2.0.3
   flutter:
     sdk: flutter
   google_fonts: ^3.0.1
+  google_sign_in: ^5.4.0
   provider: ^6.0.3
   shared_preferences: ^2.0.15
+  video_player: ^2.4.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0

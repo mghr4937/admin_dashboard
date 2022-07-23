@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
-class Background extends StatelessWidget {
+class Background extends StatefulWidget {
   const Background({Key? key}) : super(key: key);
+
+  @override
+  State<Background> createState() => _BackgroundState();
+}
+
+class _BackgroundState extends State<Background> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.network(
+        'https://assets.mixkit.co/videos/download/mixkit-football-soccer-field-9660-medium.mp4')
+      ..initialize().then((_) {
+        _controller.play();
+        _controller.setLooping(true);
+        // Ensure the first frame is shown after the video is initialized
+        setState(() {});
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +35,16 @@ class Background extends StatelessWidget {
     } else {
       width = size.width * 0.6;
     }
-    return Container(
-      decoration: _buildBackgroundImage(),
-      child: Container(
-          width: width,
-          //constraints: const BoxConstraints(maxWidth: 400),
-          child: const Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              // child: Image(
-              // image: AssetImage('futim-logo.png'),
-              //  width: 400,
-              //  ),
-            ),
-          )),
-    );
+    return SizedBox(
+        width: width,
+        //constraints: const BoxConstraints(maxWidth: 400),
+        child: VideoPlayer(_controller));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
   BoxDecoration _buildBackgroundImage() {

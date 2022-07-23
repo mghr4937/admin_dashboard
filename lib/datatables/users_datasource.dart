@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import '/services/navigation_service.dart';
-import '/models/user.dart';
+import '../models/user_data.dart';
 
-class UsersDataSource extends DataTableSource {
-  final List<User> users;
+class UserDataSource extends DataTableSource {
+  final List<UserData> users;
 
-  UsersDataSource(this.users);
+  UserDataSource(this.users);
 
   @override
   DataRow getRow(int index) {
-    final User user = users[index];
+    final UserData user = users[index];
 
-    final image = (user.img == null)
+    final image = (user.photoURL == null)
         ? const Image(image: AssetImage('assets/no-photo.png'), width: 35, height: 35)
-        : FadeInImage.assetNetwork(placeholder: 'assets/loader.gif', image: user.img!, width: 35, height: 35);
+        : FadeInImage.assetNetwork(placeholder: 'assets/loader.gif', image: user.photoURL!, width: 35, height: 35);
 
     return DataRow.byIndex(
       index: index,
       cells: [
         DataCell(ClipOval(child: image)),
-        DataCell(Text(user.name)),
+        DataCell(Text(user.displayName)),
         DataCell(Text(user.email)),
         DataCell(Text(user.uid)),
         DataCell(IconButton(

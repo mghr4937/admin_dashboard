@@ -41,7 +41,7 @@ class _CustomMenuItemState extends State<CustomMenuItem> {
                     const SizedBox(width: 10),
                     Text(
                       widget.text,
-                      style: GoogleFonts.roboto(fontSize: 16, color: Colors.green),
+                      style: GoogleFonts.roboto(fontSize: 14, color: Colors.green),
                     )
                   ]),
                 ),

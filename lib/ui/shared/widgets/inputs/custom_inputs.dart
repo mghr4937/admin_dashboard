@@ -2,10 +2,14 @@ import 'package:flutter/material.dart'; //
 
 class CustomInputs {
   static InputDecoration loginInputDecoration(
-      {required String hint, required String label, required IconData iconData, Color? color = Colors.blue}) {
+      {required String hint,
+      required String label,
+      required IconData iconData,
+      Color? color = Colors.greenAccent}) {
     return InputDecoration(
         border: OutlineInputBorder(borderSide: BorderSide(color: color!)),
-        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color, width: 3)),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: color, width: 3)),
         enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: color)),
         hintText: hint,
         hintStyle: TextStyle(color: color.withOpacity(0.7)),
@@ -16,7 +20,9 @@ class CustomInputs {
   }
 
   static InputDecoration searchInputDecoration(
-      {required String hint, required IconData iconData, Color? color = Colors.black}) {
+      {required String hint,
+      required IconData iconData,
+      Color? color = Colors.black}) {
     return InputDecoration(
         border: InputBorder.none,
         enabledBorder: InputBorder.none,
@@ -36,9 +42,11 @@ class CustomInputs {
       Color? color = Colors.black,
       Color? focusedColor = Colors.green}) {
     return InputDecoration(
-      border: OutlineInputBorder(borderSide: BorderSide(color: color!.withOpacity(0.3))),
+      border: OutlineInputBorder(
+          borderSide: BorderSide(color: color!.withOpacity(0.3))),
       enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: color)),
-      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: focusedColor!, width: 3)),
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: focusedColor!, width: 3)),
       hintText: hint,
       labelText: label,
       prefixIcon: Icon(

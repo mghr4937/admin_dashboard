@@ -1,23 +1,22 @@
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
+// import 'package:admin_dashboard/api/cafe_api.dart';
+import 'package:admin_dashboard/models/user_data.dart';
 import 'package:dio/dio.dart';
-
-import 'package:admin_dashboard/api/cafe_api.dart';
-import 'package:admin_dashboard/models/user.dart';
+import 'package:flutter/material.dart';
 
 class UserFormProvider extends ChangeNotifier {
-  User? user;
+  UserData? user;
   late GlobalKey<FormState> formkey;
 
   UserFormProvider();
 
   Future updateUser() async {
     if (!isValidForm()) return false;
-    final data = {'nombre': user!.name, 'correo': user!.email};
+    final data = {'nombre': user!.displayName, 'correo': user!.email};
     try {
-      final response = await CafeApi.httpPut('/usuarios/${user!.uid}', data);
-      print(response);
+      // final response = await CafeApi.httpPut('/usuarios/${user!.uid}', data);
+      // print(response);
       return true;
     } on DioError catch (e) {
       rethrow;
@@ -32,22 +31,21 @@ class UserFormProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  copyUserWith({String? role, bool? state, bool? google, String? name, String? email, String? uid, String? img}) {
-    user = User(
+  copyUserWith(
+      {String? role, String? name, String? email, String? uid, String? img}) {
+    user = UserData(
         role: role ?? user!.role,
-        state: state ?? user!.state,
-        google: google ?? user!.google,
-        name: name ?? user!.name,
+        displayName: name ?? user!.displayName,
         email: email ?? user!.email,
         uid: uid ?? user!.uid,
-        img: img ?? user!.img);
+        photoURL: img ?? user!.photoURL);
     notifyListeners();
   }
 
-  Future<User> uploadImage(String path, Uint8List bytes) async {
+  Future<UserData> uploadImage(String path, Uint8List bytes) async {
     try {
-      final response = await CafeApi.uploadFile(path, bytes);
-      user = User.fromMap(response);
+      // final response = await CafeApi.uploadFile(path, bytes);
+      // user = UserData.fromMap(response);
       notifyListeners();
 
       return user!;
