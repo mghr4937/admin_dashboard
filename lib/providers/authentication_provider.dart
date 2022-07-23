@@ -81,10 +81,7 @@ class AuthenticationProvider extends ChangeNotifier {
         NavigationService.replaceTo(Flurorouter.dashboardPath);
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-credential') {
-        NotificationService.showSnackBarError(
-            'Oppps, Credenciales invalidas :)');
-      }
+      NotificationService.showSnackBarError('Oppps, ${e.message} :)');
     } catch (e) {
       print(e);
       NotificationService.showSnackBarError(
@@ -118,7 +115,7 @@ class AuthenticationProvider extends ChangeNotifier {
     });
   }
 
-  void signUpUser(String email, String password, String name) async {
+  void createAccount(String email, String password, String name) async {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -139,6 +136,8 @@ class AuthenticationProvider extends ChangeNotifier {
         notifyListeners();
         NavigationService.replaceTo(Flurorouter.dashboardPath);
       }
+    } on FirebaseAuthException catch (e) {
+      NotificationService.showSnackBarError('Oppps, ${e.message} :)');
     } catch (e) {
       print(e);
       NotificationService.showSnackBarError(
@@ -146,7 +145,7 @@ class AuthenticationProvider extends ChangeNotifier {
     }
   }
 
-  void loginUser(String email, String password) async {
+  void login(String email, String password) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -162,6 +161,8 @@ class AuthenticationProvider extends ChangeNotifier {
         notifyListeners();
         NavigationService.replaceTo(Flurorouter.dashboardPath);
       }
+    } on FirebaseAuthException catch (e) {
+      NotificationService.showSnackBarError('Oppps, ${e.message} :)');
     } catch (e) {
       print(e);
       NotificationService.showSnackBarError(
@@ -176,7 +177,7 @@ class AuthenticationProvider extends ChangeNotifier {
     return false;
   }
 
-  Future signOut() async {
+  Future logout() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     try {
@@ -189,6 +190,8 @@ class AuthenticationProvider extends ChangeNotifier {
       prefs.setBool('auth', false);
 
       notifyListeners();
+    } on FirebaseAuthException catch (e) {
+      NotificationService.showSnackBarError('Oppps, ${e.message} :)');
     } catch (e) {
       NotificationService.showSnackBarError(
           'Oppps, Algo salio mal. Intente nuevamente :)');

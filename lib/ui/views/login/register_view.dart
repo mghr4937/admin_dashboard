@@ -77,7 +77,7 @@ class RegisterView extends StatelessWidget with ValidationMixin {
                               final validForm =
                                   registerFormProvider.validateForm();
                               if (!validForm) return;
-                              loginFormProvider.signUpUser(
+                              loginFormProvider.createAccount(
                                 registerFormProvider.email,
                                 registerFormProvider.password,
                                 registerFormProvider.name,

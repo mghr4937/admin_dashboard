@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -21,16 +22,16 @@ class _AuthLayoutState extends State<AuthLayout> {
       _controller = VideoPlayerController.asset('login_4k.mp4')
         ..initialize().then((_) {
           setState(() {});
-          _controller.play();
-          _controller.setLooping(true);
           _controller.setVolume(0.0);
-          //Timer.periodic(Duration(seconds: 15), (Timer time) {
-          //  print(time);
-          //});
+          _controller.removeListener(() {});
+          _controller.setLooping(true);
+          _controller.play();
         });
       super.initState();
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

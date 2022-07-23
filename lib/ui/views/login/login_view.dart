@@ -102,8 +102,7 @@ class LoginView extends StatelessWidget with ValidationMixin {
       AuthenticationProvider loginProvider) {
     final isValid = loginFormProvider.validateForm();
     if (isValid) {
-      loginProvider.loginUser(
-          loginFormProvider.email, loginFormProvider.password);
+      loginProvider.login(loginFormProvider.email, loginFormProvider.password);
     }
   }
 }
