@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:admin_dashboard/api/cafe_api.dart';
+// import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/models/category.dart';
-import 'package:admin_dashboard/models/http/categories_response.dart';
+import 'package:flutter/material.dart';
 
 class CategoriesProvider extends ChangeNotifier {
   List<Category> categories = [];
@@ -9,10 +8,10 @@ class CategoriesProvider extends ChangeNotifier {
   int? sortColumnIndex;
 
   getCategories() async {
-    final response = await CafeApi.httpGet('/categorias');
-    final categoriesResponse = CategoriesResponse.fromMap(response);
+    // final response = await CafeApi.httpGet('/categorias');
+    // final categoriesResponse = CategoriesResponse.fromMap(response);
 
-    categories = [...categoriesResponse.categories];
+    // categories = [...categoriesResponse.categories];
 
     notifyListeners();
   }
@@ -21,9 +20,9 @@ class CategoriesProvider extends ChangeNotifier {
     final data = {'nombre': name};
 
     try {
-      final response = await CafeApi.httpPost('/categorias', data);
-      final newCategory = Category.fromMap(response);
-      categories.add(newCategory);
+      // final response = await CafeApi.httpPost('/categorias', data);
+      // final newCategory = Category.fromMap(response);
+      // categories.add(newCategory);
       notifyListeners();
     } catch (e) {
       throw 'Error al crear categoría';
@@ -33,7 +32,7 @@ class CategoriesProvider extends ChangeNotifier {
   Future updateCategory(String id, String name) async {
     final data = {'id': id, 'nombre': name};
     try {
-      await CafeApi.httpPut('/categorias/$id', data);
+      // await CafeApi.httpPut('/categorias/$id', data);
 
       categories = categories.map((category) {
         if (category.id != id) return category;
@@ -48,7 +47,7 @@ class CategoriesProvider extends ChangeNotifier {
 
   Future deleteCategory(String id) async {
     try {
-      await CafeApi.httpDelete('/categorias/$id', {});
+      // await CafeApi.httpDelete('/categorias/$id', {});
 
       categories.removeWhere((categoria) => categoria.id == id);
 
@@ -62,7 +61,9 @@ class CategoriesProvider extends ChangeNotifier {
     categories.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
-      return isAscending ? Comparable.compare(aValue, bValue) : Comparable.compare(bValue, aValue);
+      return isAscending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
     });
     isAscending = !isAscending;
     notifyListeners();

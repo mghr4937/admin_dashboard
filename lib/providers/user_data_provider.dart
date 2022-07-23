@@ -1,7 +1,5 @@
-import 'package:flutter/widgets.dart';
-import 'package:admin_dashboard/api/cafe_api.dart';
-import 'package:admin_dashboard/models/http/users_response.dart';
 import 'package:admin_dashboard/models/user_data.dart';
+import 'package:flutter/widgets.dart';
 
 class UserDataProvider extends ChangeNotifier {
   List<UserData> users = [];
@@ -17,8 +15,8 @@ class UserDataProvider extends ChangeNotifier {
   getUsers() async {
     //users = FirebaseFirestore.instance.collection('users');
 
-    final response = await CafeApi.httpGet('/usuarios?limite=100&desde=0');
-    final usersResponse = UsersResponse.fromMap(response);
+    // final response = await CafeApi.httpGet('/usuarios?limite=100&desde=0');
+    // final usersResponse = UsersResponse.fromMap(response);
 
     isLoading = false;
     notifyListeners();
@@ -28,7 +26,9 @@ class UserDataProvider extends ChangeNotifier {
     users.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
-      return isAscending ? Comparable.compare(aValue, bValue) : Comparable.compare(bValue, aValue);
+      return isAscending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
     });
     isAscending = !isAscending;
     notifyListeners();
@@ -36,10 +36,10 @@ class UserDataProvider extends ChangeNotifier {
 
   Future<UserData?> getUserById(String uid) async {
     try {
-      final response = await CafeApi.httpGet('/usuarios/$uid');
-      final userResponse = UserData.fromMap(response);
+      // final response = await CafeApi.httpGet('/usuarios/$uid');
+      // final userResponse = UserData.fromMap(response);
 
-      return userResponse;
+      // return userResponse;
     } catch (e) {
       return null;
     }

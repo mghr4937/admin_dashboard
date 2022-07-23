@@ -1,21 +1,26 @@
 import 'package:admin_dashboard/models/user_data.dart';
-import 'package:admin_dashboard/repositories/user_data_repository.dart';
+import 'package:admin_dashboard/repositories/firebase/user_data_repository.dart';
+import 'package:admin_dashboard/router/router.dart';
+import 'package:admin_dashboard/services/navigation_service.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:admin_dashboard/router/router.dart';
-
-import 'package:admin_dashboard/services/notifications_service.dart';
-import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum AuthStatus { uninitialized, authenticated, authenticating, unauthenticated }
+enum AuthStatus {
+  uninitialized,
+  authenticated,
+  authenticating,
+  unauthenticated
+}
 
 class AuthenticationProvider extends ChangeNotifier {
   late User _user;
-  late UserData _userData = UserData(role: '', displayName: '', email: '', uid: '');
+  late UserData _userData =
+      UserData(role: '', displayName: '', email: '', uid: '');
   AuthStatus status = AuthStatus.unauthenticated;
 
   User get getUser => _user;
@@ -37,7 +42,8 @@ class AuthenticationProvider extends ChangeNotifier {
         final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
         // Obtain the auth details from the request
-        final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+        final GoogleSignInAuthentication? googleAuth =
+            await googleUser?.authentication;
 
         // Create a new credential
         final credential = GoogleAuthProvider.credential(
@@ -47,9 +53,11 @@ class AuthenticationProvider extends ChangeNotifier {
         // Once signed in, return the UserCredential
         userCredential = await _auth.signInWithCredential(credential);
       } else {
-        final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+        final GoogleSignInAccount? googleSignInAccount =
+            await googleSignIn.signIn();
         if (googleSignInAccount != null) {
-          final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+          final GoogleSignInAuthentication googleSignInAuthentication =
+              await googleSignInAccount.authentication;
 
           final AuthCredential credential = GoogleAuthProvider.credential(
             accessToken: googleSignInAuthentication.accessToken,
@@ -74,11 +82,13 @@ class AuthenticationProvider extends ChangeNotifier {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-credential') {
-        NotificationService.showSnackBarError('Oppps, Credenciales invalidas :)');
+        NotificationService.showSnackBarError(
+            'Oppps, Credenciales invalidas :)');
       }
     } catch (e) {
       print(e);
-      NotificationService.showSnackBarError('Oppps, Algo salio mal. Intente nuevamente :)');
+      NotificationService.showSnackBarError(
+          'Oppps, Algo salio mal. Intente nuevamente :)');
     }
   }
 
@@ -93,7 +103,8 @@ class AuthenticationProvider extends ChangeNotifier {
       }
     } catch (e) {
       print(e);
-      NotificationService.showSnackBarError('Oppps, Algo salio mal. Guardando sus datos)');
+      NotificationService.showSnackBarError(
+          'Oppps, Algo salio mal. Guardando sus datos)');
     }
   }
 
@@ -109,7 +120,8 @@ class AuthenticationProvider extends ChangeNotifier {
 
   void signUpUser(String email, String password, String name) async {
     try {
-      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
 
       if (userCredential.user != null) {
         _user = userCredential.user!;
@@ -129,13 +141,15 @@ class AuthenticationProvider extends ChangeNotifier {
       }
     } catch (e) {
       print(e);
-      NotificationService.showSnackBarError('Oppps, Algo salio mal. Intente nuevamente :)');
+      NotificationService.showSnackBarError(
+          'Oppps, Algo salio mal. Intente nuevamente :)');
     }
   }
 
   void loginUser(String email, String password) async {
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       if (userCredential.user != null) {
         _user = userCredential.user!;
         // _userData =
@@ -150,7 +164,8 @@ class AuthenticationProvider extends ChangeNotifier {
       }
     } catch (e) {
       print(e);
-      NotificationService.showSnackBarError('Oppps, Algo salio mal. Intente nuevamente :)');
+      NotificationService.showSnackBarError(
+          'Oppps, Algo salio mal. Intente nuevamente :)');
     }
   }
 
@@ -175,7 +190,8 @@ class AuthenticationProvider extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      NotificationService.showSnackBarError('Oppps, Algo salio mal. Intente nuevamente :)');
+      NotificationService.showSnackBarError(
+          'Oppps, Algo salio mal. Intente nuevamente :)');
     }
   }
 }

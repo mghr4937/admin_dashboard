@@ -1,10 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-
-import 'package:admin_dashboard/api/cafe_api.dart';
+// import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/models/user_data.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class UserFormProvider extends ChangeNotifier {
   UserData? user;
@@ -16,8 +15,8 @@ class UserFormProvider extends ChangeNotifier {
     if (!isValidForm()) return false;
     final data = {'nombre': user!.displayName, 'correo': user!.email};
     try {
-      final response = await CafeApi.httpPut('/usuarios/${user!.uid}', data);
-      print(response);
+      // final response = await CafeApi.httpPut('/usuarios/${user!.uid}', data);
+      // print(response);
       return true;
     } on DioError catch (e) {
       rethrow;
@@ -32,7 +31,8 @@ class UserFormProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  copyUserWith({String? role, String? name, String? email, String? uid, String? img}) {
+  copyUserWith(
+      {String? role, String? name, String? email, String? uid, String? img}) {
     user = UserData(
         role: role ?? user!.role,
         displayName: name ?? user!.displayName,
@@ -44,8 +44,8 @@ class UserFormProvider extends ChangeNotifier {
 
   Future<UserData> uploadImage(String path, Uint8List bytes) async {
     try {
-      final response = await CafeApi.uploadFile(path, bytes);
-      user = UserData.fromMap(response);
+      // final response = await CafeApi.uploadFile(path, bytes);
+      // user = UserData.fromMap(response);
       notifyListeners();
 
       return user!;

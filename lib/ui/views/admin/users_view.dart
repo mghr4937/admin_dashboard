@@ -1,10 +1,10 @@
 import 'package:admin_dashboard/models/user_data.dart';
-import 'package:admin_dashboard/repositories/user_data_repository.dart';
+import 'package:admin_dashboard/repositories/firebase/user_data_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '/ui/shared/widgets/labels/custom_labels.dart';
 import '/datatables/users_datasource.dart';
+import '/ui/shared/widgets/labels/custom_labels.dart';
 
 class UsersView extends StatelessWidget {
   const UsersView({Key? key}) : super(key: key);
@@ -22,7 +22,9 @@ class UsersView extends StatelessWidget {
           stream: repository.collection.snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) return const Text("There is no users");
-            users = snapshot.data!.docs.map((e) => UserData.fromMap(e.data() as Map<String, dynamic>)).toList();
+            users = snapshot.data!.docs
+                .map((e) => UserData.fromMap(e.data() as Map<String, dynamic>))
+                .toList();
             final usersDataSource = UserDataSource(users);
             return ListView(
               physics: const ClampingScrollPhysics(),

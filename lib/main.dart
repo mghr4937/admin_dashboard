@@ -13,8 +13,7 @@ import 'firebase_options.dart';
 
 void main() async {
   //BD - local
-  //await LocalStorage.configurePress();
-  //firebasw
+  //firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
