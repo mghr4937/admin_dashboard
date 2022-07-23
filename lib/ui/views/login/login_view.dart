@@ -5,8 +5,7 @@ import 'package:provider/provider.dart';
 import '/providers/authentication_provider.dart';
 import '/providers/forms/login_form_provider.dart';
 import '/router/router.dart';
-import '/ui/shared/widgets/buttons/curtom_outlined_button.dart';
-import '/ui/shared/widgets/buttons/link_text.dart';
+import '/ui/shared/widgets/buttons/custom_outlined_button.dart';
 import '/ui/shared/widgets/inputs/custom_inputs.dart';
 import '/ui/shared/widgets/mixins/validation_mixin.dart';
 
@@ -28,7 +27,6 @@ class LoginView extends StatelessWidget with ValidationMixin {
             child: Container(
               margin: const EdgeInsets.only(top: 20),
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              //color: Colors.black.withOpacity(0.2),
               child: Center(
                   child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 370),
@@ -81,16 +79,17 @@ class LoginView extends StatelessWidget with ValidationMixin {
                           width: double.infinity,
                           child: GoogleSignInButton(),
                         ),
-                        const SizedBox(height: 10),
-
-                        LinkText(
-                          text: 'Registarse',
-                          onPress: () {
-                            Navigator.pushReplacementNamed(
-                                context, Flurorouter.registerPath);
-                          },
-                          color: Colors.blue,
-                        )
+                        const SizedBox(height: 30),
+                        SizedBox(
+                          width: double.infinity, // <-- match_parent
+                          //   height: double.infinity, // <-- match-parent
+                          child: CustomOutlinedButton(
+                            onPressed: () => Navigator.pushReplacementNamed(
+                                context, Flurorouter.registerPath),
+                            text: 'Registarse',
+                            color: Colors.orangeAccent.shade700,
+                          ),
+                        ),
                       ],
                     )),
               )),

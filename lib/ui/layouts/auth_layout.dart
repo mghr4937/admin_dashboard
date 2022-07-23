@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-import '/ui/shared/widgets/custom_title.dart';
+import '/ui/shared/widgets/login_logo.dart';
 
 class AuthLayout extends StatefulWidget {
   const AuthLayout({Key? key, required this.child}) : super(key: key);
@@ -61,7 +61,7 @@ class _AuthLayoutState extends State<AuthLayout> {
           color: Colors.black.withOpacity(0.5),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             const SizedBox(height: 5),
-            const CustomTitle(),
+            const LoginLogo(),
             //const SizedBox(height: 0),
             Expanded(child: widget.child)
           ]),

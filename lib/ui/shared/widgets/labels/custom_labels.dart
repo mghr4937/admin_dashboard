@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomLabels {
   static TextStyle logoText = GoogleFonts.montserratAlternates(
-      fontSize: 36, fontWeight: FontWeight.bold, color: Colors.green);
+      fontSize: 26, fontWeight: FontWeight.bold, color: Colors.greenAccent);
 
   static TextStyle h1 = GoogleFonts.montserratAlternates(
       fontSize: 36, fontWeight: FontWeight.w400);
