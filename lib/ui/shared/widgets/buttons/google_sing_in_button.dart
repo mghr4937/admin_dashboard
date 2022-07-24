@@ -16,7 +16,7 @@ class GoogleSignInButtonState extends State<GoogleSignInButton> {
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
-    final loginProvider = Provider.of<AuthenticationProvider>(context);
+    final _authProvider = Provider.of<AuthenticationProvider>(context);
     return Container(
       //padding: const EdgeInsets.only(bottom: 8.0),
       child: _isSigningIn
@@ -37,7 +37,7 @@ class GoogleSignInButtonState extends State<GoogleSignInButton> {
                   _isSigningIn = true;
                 });
 
-                await loginProvider.signInWithGoogle();
+                await _authProvider.signInWithGoogle();
 
                 setState(() {
                   _isSigningIn = false;

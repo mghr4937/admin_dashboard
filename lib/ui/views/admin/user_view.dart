@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:provider/provider.dart';
-import '/providers/providers.dart';
 import 'package:email_validator/email_validator.dart';
-import '/services/navigation_service.dart';
-import '../../../models/user_data.dart';
-import '/services/notifications_service.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '/providers/providers.dart';
+import '/services/navigation_service.dart';
+import '/services/notifications_service.dart';
 import '/ui/shared/widgets/buttons/custom_icon_button.dart';
-import '/ui/shared/widgets/inputs/custom_inputs.dart';
 import '/ui/shared/widgets/cards/whirte_card.dart';
+import '/ui/shared/widgets/inputs/custom_inputs.dart';
 import '/ui/shared/widgets/labels/custom_labels.dart';
+import '../../../models/user_data.dart';
 
 class UserView extends StatefulWidget {
   final String uid;
@@ -29,7 +29,8 @@ class _UserViewState extends State<UserView> {
     super.initState();
 
     final usersProvider = Provider.of<UserDataProvider>(context, listen: false);
-    final userFormProvider = Provider.of<UserFormProvider>(context, listen: false);
+    final userFormProvider =
+        Provider.of<UserFormProvider>(context, listen: false);
 
     usersProvider.getUserById(widget.uid).then((userResponse) {
       if (userResponse != null) {
@@ -66,7 +67,8 @@ class _UserViewState extends State<UserView> {
                 child: Container(
               alignment: Alignment.center,
               height: 300,
-              child: const CircularProgressIndicator(color: Colors.green, strokeWidth: 10),
+              child: const CircularProgressIndicator(
+                  color: Colors.green, strokeWidth: 10),
             )),
           if (user != null) _UserViewBody(),
         ],
@@ -114,23 +116,31 @@ class _UserViewForm extends StatelessWidget {
           TextFormField(
               initialValue: user.displayName,
               validator: (value) {
-                if (value == null || value.isEmpty) return 'Ingrese nombre de usuario';
+                if (value == null || value.isEmpty)
+                  return 'Ingrese nombre de usuario';
                 if (value.length < 4) return 'Muy corto...';
                 return null;
               },
-              onChanged: ((value) => userFormProvider.copyUserWith(name: value)),
+              onChanged: ((value) =>
+                  userFormProvider.copyUserWith(name: value)),
               decoration: CustomInputs.formInputDecoration(
-                  hint: 'Nombre de usuario', label: 'Nombre', iconData: Icons.supervised_user_circle_outlined)),
+                  hint: 'Nombre de usuario',
+                  label: 'Nombre',
+                  iconData: Icons.supervised_user_circle_outlined)),
           const SizedBox(height: 20),
           TextFormField(
               initialValue: user.email,
               validator: (value) {
-                if (!EmailValidator.validate(value ?? '')) return 'Email no valido';
+                if (!EmailValidator.validate(value ?? ''))
+                  return 'Email no valido';
                 return null;
               },
-              onChanged: ((value) => userFormProvider.copyUserWith(email: value)),
+              onChanged: ((value) =>
+                  userFormProvider.copyUserWith(email: value)),
               decoration: CustomInputs.formInputDecoration(
-                  hint: 'Correo electrónico', label: 'E-mail', iconData: Icons.mark_email_read_outlined)),
+                  hint: 'Correo electrónico',
+                  label: 'E-mail',
+                  iconData: Icons.mark_email_read_outlined)),
           const SizedBox(height: 20),
           ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 120),
@@ -138,11 +148,13 @@ class _UserViewForm extends StatelessWidget {
                 onPressed: () async {
                   final saved = await userFormProvider.updateUser();
                   if (saved) {
-                    NotificationService.showSnackSuccess('Usuario ${user.displayName} actualizado!');
+                    NotificationService.showSnackBarSuccess(
+                        'Usuario ${user.displayName} actualizado!');
                     usersProvider.refreshUser(user);
                     NavigationService.replaceTo('/dashboard/users');
                   } else {
-                    NotificationService.showSnackBarError('Error, no se pudo actualizar');
+                    NotificationService.showSnackBarError(
+                        'Error, no se pudo actualizar');
                   }
                 },
                 text: 'Guardar',
@@ -197,14 +209,16 @@ class _PhotoContainer extends StatelessWidget {
                             backgroundColor: Colors.green,
                             elevation: 0,
                             onPressed: () async {
-                              FilePickerResult? result = await FilePicker.platform.pickFiles(
+                              FilePickerResult? result =
+                                  await FilePicker.platform.pickFiles(
                                 type: FileType.custom,
                                 allowedExtensions: ['png', 'jpg', 'jpeg'],
                                 allowMultiple: false,
                               );
 
                               if (result != null) {
-                                NotificationService.showProcessingIndicator(context);
+                                NotificationService.showProcessingIndicator(
+                                    context);
                                 // final userResponse = await userFormProvider.uploadImage(
                                 //      '/uploads/usuarios/${user.docid}', result.files.first.bytes!);
                                 //    Provider.of<UserDataProvider>(context, listen: false).refreshUser(userResponse);
@@ -213,7 +227,8 @@ class _PhotoContainer extends StatelessWidget {
                                 // User canceled the picker
                               }
                             },
-                            child: const Icon(Icons.camera_alt_outlined, size: 30),
+                            child:
+                                const Icon(Icons.camera_alt_outlined, size: 30),
                           ),
                         ),
                       )

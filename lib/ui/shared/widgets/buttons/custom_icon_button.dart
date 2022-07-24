@@ -13,7 +13,7 @@ class CustomIconButton extends StatelessWidget {
       required this.onPressed,
       required this.text,
       required this.icon,
-      this.color = Colors.green,
+      this.color = Colors.greenAccent,
       this.isFilled = false})
       : super(key: key);
 
@@ -21,13 +21,16 @@ class CustomIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: ButtonStyle(
-          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+          shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
           backgroundColor: MaterialStateProperty.all(color),
-          overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(0.3))),
+          overlayColor:
+              MaterialStateProperty.all(Colors.black.withOpacity(0.3))),
       onPressed: () => onPressed(),
       child: Row(children: [
         Icon(icon, color: Colors.white),
-        Text(' $text', style: GoogleFonts.montserratAlternates(color: Colors.white))
+        Text(' $text',
+            style: GoogleFonts.montserratAlternates(color: Colors.white))
       ]),
     );
   }

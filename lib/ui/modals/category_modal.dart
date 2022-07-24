@@ -82,10 +82,10 @@ class _CategoryModalState extends State<CategoryModal> {
               try {
                 if (id == null) {
                   await categoriesProvider.createCategory(name);
-                  NotificationService.showSnackSuccess('$name creado!');
+                  NotificationService.showSnackBarSuccess('$name creado!');
                 } else {
                   await categoriesProvider.updateCategory(id!, name);
-                  NotificationService.showSnackSuccess('$name actualizado!');
+                  NotificationService.showSnackBarSuccess('$name actualizado!');
                 }
               } catch (e) {
                 NotificationService.showSnackBarError('$e');

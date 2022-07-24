@@ -1,4 +1,4 @@
-import 'package:admin_dashboard/ui/shared/widgets/buttons/google_sing_in_button.dart';
+import 'package:admin_dashboard/ui/shared/widgets/buttons/link_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,13 +8,14 @@ import '/router/router.dart';
 import '/ui/shared/widgets/buttons/custom_outlined_button.dart';
 import '/ui/shared/widgets/inputs/custom_inputs.dart';
 import '/ui/shared/widgets/mixins/validation_mixin.dart';
+import '../../shared/widgets/buttons/google_sing_in_button.dart';
 
 class LoginView extends StatelessWidget with ValidationMixin {
   const LoginView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<AuthenticationProvider>(context);
+    final _authProvider = Provider.of<AuthenticationProvider>(context);
 
     return ChangeNotifierProvider(
         create: (context) => LoginFormProvider(),
@@ -39,7 +40,7 @@ class LoginView extends StatelessWidget with ValidationMixin {
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
                           onFieldSubmitted: (_) => onSubmitMailPassword(
-                              loginFormProvider, loginProvider),
+                              loginFormProvider, _authProvider),
                           validator: (value) => validateEmail(value ?? ''),
                           onChanged: (value) => loginFormProvider.email = value,
                           style: const TextStyle(color: Colors.white),
@@ -52,7 +53,7 @@ class LoginView extends StatelessWidget with ValidationMixin {
                         //password
                         TextFormField(
                           onFieldSubmitted: (_) => onSubmitMailPassword(
-                              loginFormProvider, loginProvider),
+                              loginFormProvider, _authProvider),
                           validator: (value) => validatePassword(value ?? ''),
                           onChanged: (value) =>
                               loginFormProvider.password = value,
@@ -63,14 +64,26 @@ class LoginView extends StatelessWidget with ValidationMixin {
                               label: 'Contraseña',
                               iconData: Icons.lock),
                         ),
-                        const SizedBox(height: 10),
-
+                        const SizedBox(height: 5),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: LinkText(
+                            text: 'Olvidé mi contraseña',
+                            onPress: () {
+                              //    Navigator.pushReplacementNamed(context, Flurorouter.registerPath);
+                              _authProvider.resetPassword(
+                                  email: loginFormProvider.email);
+                            },
+                            color: Colors.greenAccent,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
                         SizedBox(
                           width: double.infinity, // <-- match_parent
                           //   height: double.infinity, // <-- match-parent
                           child: CustomOutlinedButton(
                             onPressed: () => onSubmitMailPassword(
-                                loginFormProvider, loginProvider),
+                                loginFormProvider, _authProvider),
                             text: 'Ingresar',
                           ),
                         ),

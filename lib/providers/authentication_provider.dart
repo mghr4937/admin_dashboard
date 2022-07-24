@@ -177,7 +177,28 @@ class AuthenticationProvider extends ChangeNotifier {
     return false;
   }
 
-  Future logout() async {
+  void resetPassword({required String email}) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      NotificationService.showSnackBarSuccess(
+          'Se ha enviado un correo para restablecer su contraseña');
+    } on FirebaseAuthException catch (e) {
+      NotificationService.showSnackBarError('Oppps, ${e.message} :)');
+    } catch (e) {
+      //print(e);
+      NotificationService.showSnackBarError(
+          'Oppps, Algo salio mal. Intente nuevamente :)');
+    }
+
+    await _auth
+        .sendPasswordResetEmail(email: email)
+        .then((value) => status = AuthStatus.authenticated)
+        .catchError((e) =>
+            NotificationService.showSnackBarError('Oppps, ${e.message} :)'));
+    NavigationService.replaceTo(Flurorouter.loginPath);
+  }
+
+  void logout() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     try {

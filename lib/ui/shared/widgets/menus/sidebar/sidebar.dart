@@ -2,10 +2,11 @@ import 'package:admin_dashboard/providers/authentication_provider.dart';
 import 'package:admin_dashboard/providers/sidebar_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
-import 'package:admin_dashboard/ui/shared/widgets/logo.dart';
 import 'package:admin_dashboard/ui/shared/widgets/menus/sidebar/custom_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../logo.dart';
 //import 'package:admin_dashboard/ui/layouts/auth/widgets/text_separator.dart';
 
 class SideBar extends StatelessWidget {

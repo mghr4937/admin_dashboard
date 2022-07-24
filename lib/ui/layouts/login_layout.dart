@@ -2,18 +2,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-import '/ui/shared/widgets/login_logo.dart';
+import '/ui/shared/widgets/logo.dart';
 
-class AuthLayout extends StatefulWidget {
-  const AuthLayout({Key? key, required this.child}) : super(key: key);
+class LoginLayout extends StatefulWidget {
+  const LoginLayout({Key? key, required this.child}) : super(key: key);
 
   final Widget child;
 
   @override
-  State<AuthLayout> createState() => _AuthLayoutState();
+  State<LoginLayout> createState() => _LoginLayoutState();
 }
 
-class _AuthLayoutState extends State<AuthLayout> {
+class _LoginLayoutState extends State<LoginLayout> {
   late VideoPlayerController _controller;
 
   @override
@@ -62,7 +62,7 @@ class _AuthLayoutState extends State<AuthLayout> {
           color: Colors.black.withOpacity(0.5),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             const SizedBox(height: 5),
-            const LoginLogo(),
+            const Logo(),
             //const SizedBox(height: 0),
             Expanded(child: widget.child)
           ]),
@@ -90,9 +90,9 @@ class _AuthLayoutState extends State<AuthLayout> {
     } else if (height < 821) {
       return height * 0.15;
     } else if (height <= 920) {
-      return height * 0.20;
+      return height * 0.18;
     } else if (height <= 1024) {
-      return height * 0.25;
+      return height * 0.22;
     } else {
       return height * 0.28;
     }

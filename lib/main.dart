@@ -1,4 +1,5 @@
 import 'package:admin_dashboard/providers/providers.dart';
+import 'package:admin_dashboard/ui/layouts/login_layout.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +7,6 @@ import 'package:provider/provider.dart';
 import '/router/router.dart';
 import '/services/navigation_service.dart';
 import '/services/notifications_service.dart';
-import '/ui/layouts/auth_layout.dart';
 import '/ui/layouts/dashboard/dashboard_layout.dart';
 import '/ui/layouts/splash/splash_layout.dart';
 import 'firebase_options.dart';
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
         if (authProvider.status == AuthStatus.authenticated) {
           return DashboardLayout(child: child!);
         } else {
-          return AuthLayout(child: child!);
+          return LoginLayout(child: child!);
         }
       }),
       theme: ThemeData.light().copyWith(

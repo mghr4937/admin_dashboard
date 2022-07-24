@@ -9,9 +9,13 @@ class NavBarAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final loggedUser = Provider.of<AuthenticationProvider>(context).getUserData;
     final image = (loggedUser.photoURL == null)
-        ? const Image(image: AssetImage('assets/no-photo.png'), width: 35, height: 35)
+        ? const Image(
+            image: AssetImage('assets/logo-field.png'), width: 35, height: 35)
         : FadeInImage.assetNetwork(
-            placeholder: 'assets/loader.gif', image: loggedUser.photoURL!, width: 35, height: 35);
+            placeholder: 'assets/loader.gif',
+            image: loggedUser.photoURL!,
+            width: 35,
+            height: 35);
     //ImageElement(src: loggedUser.photoURL!, width: 35, height: 35);
     return ClipOval(
       child: SizedBox(

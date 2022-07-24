@@ -8,7 +8,11 @@ class CustomMenuItem extends StatefulWidget {
   final Function onPressed;
 
   const CustomMenuItem(
-      {Key? key, required this.text, required this.icon, this.isActive = false, required this.onPressed})
+      {Key? key,
+      required this.text,
+      required this.icon,
+      this.isActive = false,
+      required this.onPressed})
       : super(key: key);
 
   @override
@@ -23,27 +27,32 @@ class _CustomMenuItemState extends State<CustomMenuItem> {
     return AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         color: isHovered
-            ? Colors.lightGreenAccent.withOpacity(0.3)
+            ? Colors.greenAccent.withOpacity(0.3)
             : widget.isActive
-                ? Colors.lightGreenAccent.withOpacity(0.2)
+                ? Colors.greenAccent.withOpacity(0.2)
                 : Colors.transparent,
         child: Material(
             color: Colors.transparent,
             child: InkWell(
               onTap: widget.isActive ? null : (() => widget.onPressed()),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: MouseRegion(
                   onEnter: (event) => setState(() => isHovered = true),
                   onExit: (event) => setState(() => isHovered = false),
-                  child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    Icon(widget.icon.icon, color: Colors.green, size: 30),
-                    const SizedBox(width: 10),
-                    Text(
-                      widget.text,
-                      style: GoogleFonts.roboto(fontSize: 14, color: Colors.green),
-                    )
-                  ]),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(widget.icon.icon,
+                            color: Colors.greenAccent, size: 30),
+                        const SizedBox(width: 10),
+                        Text(
+                          widget.text,
+                          style: GoogleFonts.roboto(
+                              fontSize: 14, color: Colors.greenAccent),
+                        )
+                      ]),
                 ),
               ),
             )));

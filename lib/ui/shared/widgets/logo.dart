@@ -1,21 +1,39 @@
+import 'package:admin_dashboard/ui/shared/widgets/labels/custom_labels.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Logo extends StatelessWidget {
   const Logo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Container(
-      padding: const EdgeInsets.only(top: 30),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.asset('assets/logo-field.png', width: 120, height: 120),
-        const SizedBox(height: 5),
-        Text(
-          'Fúubool',
-          style: GoogleFonts.montserratAlternates(fontSize: 30, color: Colors.green, fontWeight: FontWeight.bold),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(children: [
+        //Image.asset('assets/logo-field.png', width: 100, height: 100),
+        Icon(Icons.sports_soccer,
+            color: Colors.greenAccent, size: _logoSize(size.height)),
+
+        const SizedBox(
+          height: 10,
         ),
+        FittedBox(
+          fit: BoxFit.contain,
+          child: Text(
+            'Fúubool',
+            style: CustomLabels.logoText,
+          ),
+        )
       ]),
     );
+  }
+
+  double _logoSize(double height) {
+    if (height <= 601) {
+      return height * 0.05;
+    } else {
+      return height * 0.1;
+    }
   }
 }

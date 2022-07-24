@@ -1,9 +1,11 @@
+import 'package:admin_dashboard/providers/sidebar_provider.dart';
+import 'package:admin_dashboard/ui/shared/widgets/inputs/search_text.dart';
+import 'package:admin_dashboard/ui/shared/widgets/menus/navbar/notifications_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:admin_dashboard/providers/sidebar_provider.dart';
-import 'package:admin_dashboard/ui/shared/widgets/menus/navbar/navbar_avatar.dart';
-import 'package:admin_dashboard/ui/shared/widgets/menus/navbar/notifications_indicator.dart';
-import 'package:admin_dashboard/ui/shared/widgets/inputs/search_text.dart';
+
+import '../../../../../providers/authentication_provider.dart';
+import '../../labels/custom_labels.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -11,7 +13,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    final authProvider = Provider.of<AuthenticationProvider>(context);
     return Container(
       width: double.infinity,
       height: 50,
@@ -36,15 +38,21 @@ class NavBar extends StatelessWidget {
             ),
 
           const Spacer(),
+          Text(
+            'Hola, ${authProvider.getUser.displayName}',
+            style: CustomLabels.h4,
+          ),
+          const SizedBox(width: 10),
           const NotificationsIndicator(),
           const SizedBox(width: 10),
-          const NavBarAvatar(),
-          const SizedBox(width: 20)
+          // const NavBarAvatar(),
+          // const SizedBox(width: 20)
         ],
       ),
     );
   }
 
-  BoxDecoration buildBoxDecoration() =>
-      const BoxDecoration(color: Colors.green, boxShadow: [BoxShadow(color: Colors.black, blurRadius: 5)]);
+  BoxDecoration buildBoxDecoration() => const BoxDecoration(
+      color: Colors.greenAccent,
+      boxShadow: [BoxShadow(color: Colors.black, blurRadius: 5)]);
 }
