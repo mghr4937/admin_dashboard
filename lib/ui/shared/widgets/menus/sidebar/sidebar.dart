@@ -38,6 +38,8 @@ class SideBar extends StatelessWidget {
             onPressed: () => navigateTo(Flurorouter.dashboardPath),
           ),
           CustomMenuItem(
+              isActive:
+                  sideBarProvider.currentPage == Flurorouter.tournamentsPath,
               text: 'Campeonatos',
               icon: const Icon(Icons.webhook_outlined),
               onPressed: () => navigateTo(Flurorouter.tournamentsPath)),

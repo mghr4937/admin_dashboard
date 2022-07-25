@@ -8,16 +8,22 @@ class TournamentsRepository {
   static String? userUid;
 
   static Future<void> addItem({
+    required String? uid,
+    required bool isActive,
     required String name,
     required int size,
-    required bool isActive,
+    required DateTime startDate,
+    required DateTime updateDate,
   }) async {
     DocumentReference documentReferencer =
         _mainCollection.doc(userUid).collection(_collection).doc();
 
     Map<String, dynamic> data = <String, dynamic>{
+      "size": uid,
+      "isActive": isActive,
       "name": name,
-      "description": size,
+      "startDate": startDate,
+      "updateDate": updateDate
     };
 
     await documentReferencer

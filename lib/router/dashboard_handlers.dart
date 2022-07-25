@@ -3,6 +3,7 @@ import 'package:admin_dashboard/providers/sidebar_provider.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/ui/views/admin/categories_view.dart';
 import 'package:admin_dashboard/ui/views/admin/dashboard_view.dart';
+import 'package:admin_dashboard/ui/views/admin/tournaments_view.dart';
 import 'package:admin_dashboard/ui/views/admin/user_view.dart';
 import 'package:admin_dashboard/ui/views/admin/users_view.dart';
 import 'package:admin_dashboard/ui/views/animation_view.dart';
@@ -70,7 +71,7 @@ class DashboardHandlers {
       if (parameters['uid']?.first != null) {
         return UserView(uid: parameters['uid']!.first);
       } else {
-        return const TournamentsView();
+        return const UsersView();
       }
     } else {
       return const LoginView();

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import '/datatables/users_datasource.dart';
 import '/ui/shared/widgets/labels/custom_labels.dart';
 
-class TournamentsView extends StatelessWidget {
-  const TournamentsView({Key? key}) : super(key: key);
+class UsersView extends StatelessWidget {
+  const UsersView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
