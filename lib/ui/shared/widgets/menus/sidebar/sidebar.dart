@@ -38,19 +38,21 @@ class SideBar extends StatelessWidget {
             onPressed: () => navigateTo(Flurorouter.dashboardPath),
           ),
           CustomMenuItem(
+              isActive:
+                  sideBarProvider.currentPage == Flurorouter.tournamentsPath,
               text: 'Campeonatos',
               icon: const Icon(Icons.webhook_outlined),
-              onPressed: () {}),
+              onPressed: () => navigateTo(Flurorouter.tournamentsPath)),
           CustomMenuItem(
               text: 'Equipos',
               icon: const Icon(Icons.dataset_outlined),
               onPressed: () {}),
 
-          CustomMenuItem(
-              isActive: sideBarProvider.currentPage == Flurorouter.usersPath,
-              text: 'Usuarios',
-              icon: const Icon(Icons.person_search_outlined),
-              onPressed: () => navigateTo(Flurorouter.usersPath)),
+          // CustomMenuItem(
+          //     isActive: sideBarProvider.currentPage == Flurorouter.usersPath,
+          //     text: 'Usuarios',
+          //     icon: const Icon(Icons.person_search_outlined),
+          //     onPressed: () => navigateTo(Flurorouter.usersPath)),
 
           const SizedBox(height: 30),
 

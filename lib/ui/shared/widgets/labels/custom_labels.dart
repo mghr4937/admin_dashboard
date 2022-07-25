@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../utils/custom_colors.dart';
+
 class CustomLabels {
   static TextStyle logoText = GoogleFonts.montserratAlternates(
-      fontSize: 26, fontWeight: FontWeight.bold, color: Colors.greenAccent);
+      fontSize: 26, fontWeight: FontWeight.bold, color: CustomColors.mainColor);
 
   static TextStyle h1 = GoogleFonts.montserratAlternates(
       fontSize: 36, fontWeight: FontWeight.w400);

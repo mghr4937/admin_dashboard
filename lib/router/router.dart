@@ -14,6 +14,7 @@ class Flurorouter {
 
   //dashboard
   static String dashboardPath = '/dashboard';
+  static String tournamentsPath = '/dashboard/tournaments';
   static String iconsPath = '/dashboard/icons';
   static String categoriesPath = '/dashboard/categories';
   static String usersPath = '/dashboard/users';
@@ -41,8 +42,8 @@ class Flurorouter {
         transitionType: TransitionType.none,
         transitionDuration: const Duration(milliseconds: 100));
 
-    router.define(usersPath,
-        handler: DashboardHandlers.users,
+    router.define(tournamentsPath,
+        handler: DashboardHandlers.tournaments,
         transitionType: TransitionType.none,
         transitionDuration: const Duration(milliseconds: 100));
 

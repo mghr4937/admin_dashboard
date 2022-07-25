@@ -8,6 +8,7 @@ import '/router/router.dart';
 import '/ui/shared/widgets/buttons/custom_outlined_button.dart';
 import '/ui/shared/widgets/inputs/custom_inputs.dart';
 import '/ui/shared/widgets/mixins/validation_mixin.dart';
+import '../../../utils/custom_colors.dart';
 import '../../shared/widgets/buttons/google_sing_in_button.dart';
 
 class LoginView extends StatelessWidget with ValidationMixin {
@@ -74,7 +75,7 @@ class LoginView extends StatelessWidget with ValidationMixin {
                               _authProvider.resetPassword(
                                   email: loginFormProvider.email);
                             },
-                            color: Colors.greenAccent,
+                            color: CustomColors.mainColor,
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -100,7 +101,7 @@ class LoginView extends StatelessWidget with ValidationMixin {
                             onPressed: () => Navigator.pushReplacementNamed(
                                 context, Flurorouter.registerPath),
                             text: 'Registarse',
-                            color: Colors.orangeAccent.shade700,
+                            color: CustomColors.secondaryColor,
                           ),
                         ),
                       ],

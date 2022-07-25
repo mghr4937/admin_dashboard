@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../utils/custom_colors.dart';
+
 class CustomIconButton extends StatelessWidget {
   final Function onPressed;
   final String text;
@@ -13,7 +15,7 @@ class CustomIconButton extends StatelessWidget {
       required this.onPressed,
       required this.text,
       required this.icon,
-      this.color = Colors.greenAccent,
+      this.color = CustomColors.mainColor,
       this.isFilled = false})
       : super(key: key);
 

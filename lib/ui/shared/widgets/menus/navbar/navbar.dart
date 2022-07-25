@@ -1,6 +1,7 @@
 import 'package:admin_dashboard/providers/sidebar_provider.dart';
 import 'package:admin_dashboard/ui/shared/widgets/inputs/search_text.dart';
 import 'package:admin_dashboard/ui/shared/widgets/menus/navbar/notifications_indicator.dart';
+import 'package:admin_dashboard/utils/custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,6 +54,6 @@ class NavBar extends StatelessWidget {
   }
 
   BoxDecoration buildBoxDecoration() => const BoxDecoration(
-      color: Colors.greenAccent,
+      color: CustomColors.mainColor,
       boxShadow: [BoxShadow(color: Colors.black, blurRadius: 5)]);
 }

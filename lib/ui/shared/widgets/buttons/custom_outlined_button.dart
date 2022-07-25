@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/utils/custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,7 +12,7 @@ class CustomOutlinedButton extends StatelessWidget {
     Key? key,
     required this.text,
     required this.onPressed,
-    this.color = Colors.greenAccent,
+    this.color = CustomColors.mainColor,
     this.isFilled = true,
   }) : super(key: key);
 

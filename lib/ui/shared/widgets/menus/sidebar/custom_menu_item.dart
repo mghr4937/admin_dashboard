@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../utils/custom_colors.dart';
+
 class CustomMenuItem extends StatefulWidget {
   final String text;
   final Icon icon;
@@ -27,9 +29,9 @@ class _CustomMenuItemState extends State<CustomMenuItem> {
     return AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         color: isHovered
-            ? Colors.greenAccent.withOpacity(0.3)
+            ? CustomColors.mainColor.withOpacity(0.3)
             : widget.isActive
-                ? Colors.greenAccent.withOpacity(0.2)
+                ? CustomColors.mainColor.withOpacity(0.2)
                 : Colors.transparent,
         child: Material(
             color: Colors.transparent,
@@ -45,12 +47,12 @@ class _CustomMenuItemState extends State<CustomMenuItem> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(widget.icon.icon,
-                            color: Colors.greenAccent, size: 30),
+                            color: CustomColors.mainColor, size: 30),
                         const SizedBox(width: 10),
                         Text(
                           widget.text,
                           style: GoogleFonts.roboto(
-                              fontSize: 14, color: Colors.greenAccent),
+                              fontSize: 14, color: CustomColors.mainColor),
                         )
                       ]),
                 ),
