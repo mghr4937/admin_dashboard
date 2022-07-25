@@ -1,21 +1,22 @@
-import 'package:fluro/fluro.dart';
-import 'package:provider/provider.dart';
-import 'package:admin_dashboard/router/router.dart';
-import 'package:admin_dashboard/providers/sidebar_provider.dart';
 import 'package:admin_dashboard/providers/authentication_provider.dart';
-import 'package:admin_dashboard/ui/views/animation_view.dart';
-import 'package:admin_dashboard/ui/views/login/login_view.dart';
-import 'package:admin_dashboard/ui/views/icons_view.dart';
+import 'package:admin_dashboard/providers/sidebar_provider.dart';
+import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/ui/views/admin/categories_view.dart';
+import 'package:admin_dashboard/ui/views/admin/dashboard_view.dart';
 import 'package:admin_dashboard/ui/views/admin/user_view.dart';
 import 'package:admin_dashboard/ui/views/admin/users_view.dart';
+import 'package:admin_dashboard/ui/views/animation_view.dart';
 import 'package:admin_dashboard/ui/views/blank_view.dart';
-import 'package:admin_dashboard/ui/views/admin/dashboard_view.dart';
+import 'package:admin_dashboard/ui/views/icons_view.dart';
+import 'package:admin_dashboard/ui/views/login/login_view.dart';
+import 'package:fluro/fluro.dart';
+import 'package:provider/provider.dart';
 
 class DashboardHandlers {
   static Handler adminPanel = Handler(handlerFunc: ((context, parameters) {
     final authProvider = Provider.of<AuthenticationProvider>(context!);
-    Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.dashboardPath);
+    Provider.of<SideBarProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.dashboardPath);
 
     if (authProvider.status == AuthStatus.authenticated) {
       return const DashboardView();
@@ -26,7 +27,8 @@ class DashboardHandlers {
 
   static Handler icons = Handler(handlerFunc: ((context, parameters) {
     final authProvider = Provider.of<AuthenticationProvider>(context!);
-    Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.iconsPath);
+    Provider.of<SideBarProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.iconsPath);
 
     if (authProvider.status == AuthStatus.authenticated) {
       return const IconsView();
@@ -37,7 +39,8 @@ class DashboardHandlers {
 
   static Handler categories = Handler(handlerFunc: ((context, parameters) {
     final authProvider = Provider.of<AuthenticationProvider>(context!);
-    Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.categoriesPath);
+    Provider.of<SideBarProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.categoriesPath);
 
     if (authProvider.status == AuthStatus.authenticated) {
       return const CategoriesView();
@@ -46,12 +49,13 @@ class DashboardHandlers {
     }
   }));
 
-  static Handler users = Handler(handlerFunc: ((context, parameters) {
+  static Handler tournaments = Handler(handlerFunc: ((context, parameters) {
     final authProvider = Provider.of<AuthenticationProvider>(context!);
-    Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.usersPath);
+    Provider.of<SideBarProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.tournamentsPath);
 
     if (authProvider.status == AuthStatus.authenticated) {
-      return const UsersView();
+      return const TournamentsView();
     } else {
       return const LoginView();
     }
@@ -59,13 +63,14 @@ class DashboardHandlers {
 
   static Handler user = Handler(handlerFunc: ((context, parameters) {
     final authProvider = Provider.of<AuthenticationProvider>(context!);
-    Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.userPath);
+    Provider.of<SideBarProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.userPath);
 
     if (authProvider.status == AuthStatus.authenticated) {
       if (parameters['uid']?.first != null) {
         return UserView(uid: parameters['uid']!.first);
       } else {
-        return const UsersView();
+        return const TournamentsView();
       }
     } else {
       return const LoginView();
@@ -74,7 +79,8 @@ class DashboardHandlers {
 
   static Handler blank = Handler(handlerFunc: ((context, parameters) {
     final authProvider = Provider.of<AuthenticationProvider>(context!);
-    Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.blankPath);
+    Provider.of<SideBarProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.blankPath);
 
     if (authProvider.status == AuthStatus.authenticated) {
       return const BlankView();
@@ -85,7 +91,8 @@ class DashboardHandlers {
 
   static Handler animation = Handler(handlerFunc: ((context, parameters) {
     final authProvider = Provider.of<AuthenticationProvider>(context!);
-    Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.animationPath);
+    Provider.of<SideBarProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.animationPath);
 
     if (authProvider.status == AuthStatus.authenticated) {
       return const AnimationView();

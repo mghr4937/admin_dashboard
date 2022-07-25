@@ -7,6 +7,7 @@ import '/router/router.dart';
 import '/ui/shared/widgets/buttons/custom_outlined_button.dart';
 import '/ui/shared/widgets/inputs/custom_inputs.dart';
 import '/ui/shared/widgets/mixins/validation_mixin.dart';
+import '../../../utils/custom_colors.dart';
 
 class RegisterView extends StatelessWidget with ValidationMixin {
   const RegisterView({Key? key}) : super(key: key);
@@ -93,7 +94,7 @@ class RegisterView extends StatelessWidget with ValidationMixin {
                             onPressed: () => Navigator.pushReplacementNamed(
                                 context, Flurorouter.loginPath),
                             text: 'Volver al Login',
-                            color: Colors.orangeAccent.shade700,
+                            color: CustomColors.secondaryColor,
                           ),
                         ),
                       ],

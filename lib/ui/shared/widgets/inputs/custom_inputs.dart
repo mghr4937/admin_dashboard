@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart'; //
+import 'package:flutter/material.dart';
+
+import '../../../../utils/custom_colors.dart'; //
 
 class CustomInputs {
   static InputDecoration loginInputDecoration(
       {required String hint,
       required String label,
       required IconData iconData,
-      Color? color = Colors.greenAccent}) {
+      Color? color = CustomColors.mainColor}) {
     return InputDecoration(
         border: OutlineInputBorder(borderSide: BorderSide(color: color!)),
         focusedBorder:

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../utils/custom_colors.dart';
+
 class NotificationService {
   static GlobalKey<ScaffoldMessengerState> messengerKey =
       GlobalKey<ScaffoldMessengerState>();
@@ -16,7 +18,7 @@ class NotificationService {
 
   static showSnackBarSuccess(String message) {
     final snackBar = SnackBar(
-        backgroundColor: Colors.greenAccent.withOpacity(0.9),
+        backgroundColor: CustomColors.mainColor.withOpacity(0.9),
         content: Text(message,
             style: GoogleFonts.roboto(color: Colors.white, fontSize: 20)));
 
